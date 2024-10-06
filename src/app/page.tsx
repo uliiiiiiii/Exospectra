@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div className={css.main}>
-      <div className={css.about}>ABOUT</div>
+      {/* <div className={css.about}>ABOUT</div> */}
       <div className={css.center}>
         <ExospectraLabel />
         <div className={css.starsSymbols}></div>
@@ -33,8 +33,10 @@ export default function Home() {
           className={css.searchField}
         />
         <button onClick={handleSearch} className={css.button}>Search</button>
+        <p>Or Take a Look at</p>
+        <a href="/planets-list"><div className={css.planetsList}>INTERESTING PLANETS</div></a>
       </div>
-      <a href="/planets-list"><div className={css.planetsList}>INTERESTING PLANETS</div></a>
+
     </div >
   );
 }

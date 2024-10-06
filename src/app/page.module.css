@@ -5,8 +5,8 @@
   background-image: url('/starsBackground.png');
   background-size: cover;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   padding-left: 14px;
   padding-right: 14px;
@@ -124,7 +124,11 @@
 }
 
 .planetsList {
-  width: 220px;
-  text-align: right;
+  text-align: center;
   text-wrap: wrap
+}
+
+.main p {
+  font-family: var(--font-family);
+  font-size: 20px;
 }
