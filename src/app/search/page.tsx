@@ -37,7 +37,7 @@ function Search() {
         <div>
             {!planetName ? (
                 <h1>No object name provided.</h1>
-            ) : (<Loading />
+            ) : (<Loading progress="Searching for your object... 👀" />
             )}
         </div>
     );
@@ -45,7 +45,7 @@ function Search() {
 
 export default function SearchResults() {
     return (
-        <Suspense fallback={<p>Loading search params...</p>}>
+        <Suspense fallback={<Loading progress="Retrieving your search... 🔍" />}>
             <Search />
         </Suspense>
     )

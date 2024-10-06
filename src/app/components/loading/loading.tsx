@@ -2,7 +2,7 @@ import ExospectraLabel from "../ExospectraLabel"
 import Image from "next/image"
 import css from './styles.module.css'
 
-export default function Loading() {
+export default function Loading({ progress }: { progress: string }) {
     return (
         <div className={css.main}>
             <div className={css.labelContainer}>
@@ -14,6 +14,7 @@ export default function Loading() {
                     <Image className={css.rocket} src='/rocket.png' width={110} height={110} alt='rocket' />
                 </div>
             </div>
+            <p>{progress}</p>
         </div>
     )
 }

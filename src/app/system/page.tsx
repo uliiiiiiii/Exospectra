@@ -97,7 +97,7 @@ function ExoplanetSystemSearchResult() {
     };
 
     if (isLoading) {
-        return <Loading />;
+        return <Loading progress="Found a system! Fetching its data... 🌍" />;
     }
 
     if (!systemName) {
@@ -109,7 +109,7 @@ function ExoplanetSystemSearchResult() {
 
 export default function ExoplanetSystem() {
     return (
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading progress="Found a system! Getting its name from the url... 🔗"/>}>
             <ExoplanetSystemSearchResult />
         </Suspense>
     )

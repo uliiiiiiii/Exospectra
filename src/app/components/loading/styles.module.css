@@ -7,6 +7,12 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    font-size: 20px;
+    font-family: var(--font-family);
+}
+
+.main p {
+    margin-bottom: 25px;
 }
 
 .labelContainer {
@@ -21,6 +27,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+
 }
 
 .loader {
