@@ -19,4 +19,7 @@ export interface PlanetProps {
   orbitalPeriod: number | null; //days
   semiMajorAxis: number | null; //AU
   orbitalRadius: number; // these are not in any specific physical units. It's just for 3d model 
+  ra?: number, //RA
+  dec?: number, //Dec
+  distance?: number //pc
 }

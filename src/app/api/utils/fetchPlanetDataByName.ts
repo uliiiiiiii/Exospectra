@@ -16,7 +16,6 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
         radius: { sum: 0, count: 0 },
         semiMajorAxis: { sum: 0, count: 0 },
         orbitalPeriod: { sum: 0, count: 0 },
-        insolationFlux: { sum: 0, count: 0 },
         mass: { sum: 0, count: 0 },
       };
 
@@ -25,13 +24,11 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
           pl_rade,
           pl_orbsmax,
           pl_orbper,
-          pl_insol,
           pl_bmasse,
         }: {
           pl_rade: number;
           pl_orbsmax: number;
           pl_orbper: number;
-          pl_insol: number;
           pl_bmasse: number;
         }) => {
           //pl_orbsmax is semi major axis. I need to read in more detail about this later
@@ -46,10 +43,6 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
           if (pl_orbper) {
             totals.orbitalPeriod.sum += pl_orbper;
             totals.orbitalPeriod.count++;
-          }
-          if (pl_insol) {
-            totals.insolationFlux.sum += pl_insol;
-            totals.insolationFlux.count++;
           }
           if (pl_bmasse) {
             totals.mass.sum += pl_bmasse;
@@ -72,6 +65,9 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
         mass: totals.mass.sum / totals.mass.count,
         orbitalRadius: calculateOrbitalRadius(semiMajorAxis, stellarRadius, planetRadius * 6371),
         semiMajorAxis: semiMajorAxis,
+        ra: data[0].ra,
+        dec: data[0].dec,
+        distance: data[0].sy_dist,
       };
     } else {
       return null;
