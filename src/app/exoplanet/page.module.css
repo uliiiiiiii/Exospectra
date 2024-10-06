@@ -56,27 +56,24 @@
     justify-content: space-between;
     width: 556px;
     align-items: flex-end;
-    /* height: calc(100% - 100px); */
     position: absolute;
     right: 60px;
-    position: absolute;
     top: 50px;
-    left: calc(100%-556px);
     z-index: 1000;
 }
 
-.constellation {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 556px;
-    align-items: flex-end;
-    height: 100px;
-    position: absolute;
-    right: 50px;
-    bottom: 100px;
-    position: absolute;
-    z-index: 1000;
+.slantedText {
+    background-color: red;
+    color: white; 
+    font-size: 16px; 
+    font-weight: bold; 
+    padding: 10px 30px;
+    transform: rotate(-10deg);
+    display: inline-block;
+    border-radius: 5px; 
+    position: relative;
+    right: 170px; 
+    bottom: 70px; 
 }
 
 .right {
@@ -93,10 +90,23 @@
     display: flex;
     flex-direction: row;
     gap: 24px;
-    text-wrap: wrap;
+    flex-wrap: text;
     line-height: 28px;
 }
 
+.constellation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 556px;
+    align-items: flex-end;
+    height: 100px;
+    position: absolute;
+    right: 50px;
+    bottom: 100px;
+    position: absolute;
+    z-index: 1000;
+}
 
 .displayButtons {
     width: 164px;
@@ -125,7 +135,7 @@
     border: 6px solid var(--border-color);
     background-repeat: no-repeat;
     background-size: 0.5;
-    background-image: url('/exportIcon.png');
+    background-image: url("/exportIcon.png");
     background-position: center;
     position: absolute;
     bottom: 30px;
