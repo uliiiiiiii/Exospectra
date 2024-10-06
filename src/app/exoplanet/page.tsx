@@ -13,6 +13,7 @@ import StarsBackground from "../sky/stars";
 import ConstellationMenuButton from "./components/constellationsMenuButton";
 import { Constellation } from "@/types/constellation";
 import ConstellationsMenu from "./components/constellationsMenu";
+import exportToPng from "../utils/exportToPng";
 
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
@@ -30,20 +31,20 @@ function ExoplanetSearchResult() {
         let result = localStorage.getItem("firstFreeID");
         let new_id = 1; //if none
         if (result != null) {
-            new_id = parseInt(result,10) +1;
+            new_id = parseInt(result, 10) + 1;
         }
-        localStorage.setItem("firstFreeID",`${new_id}`);
-        return new_id-1;
+        localStorage.setItem("firstFreeID", `${new_id}`);
+        return new_id - 1;
     }
 
     function getFreeEdgeID() {
         let result = localStorage.getItem("firstFreeEdgeID");
         let new_id = 1; //if none
         if (result != null) {
-            new_id = parseInt(result,10) +1;
+            new_id = parseInt(result, 10) + 1;
         }
-        localStorage.setItem("firstFreeEdgeID",`${new_id}`);
-        return new_id-1;
+        localStorage.setItem("firstFreeEdgeID", `${new_id}`);
+        return new_id - 1;
     }
 
     const [isEditing, setIsEditing] = useState(false);
@@ -55,9 +56,9 @@ function ExoplanetSearchResult() {
     ) {
         let newConstellations = [...constellations];
         newConstellations.forEach((constellation, index) => {
-           if (constellation.id == id) {
-            newConstellations[index] = { ...constellation, ...newConstellation };
-           } 
+            if (constellation.id == id) {
+                newConstellations[index] = { ...constellation, ...newConstellation };
+            }
         });
         setConstellations(newConstellations);
     }
@@ -87,7 +88,7 @@ function ExoplanetSearchResult() {
         let result = localStorage.getItem("constellations");
         if (result == null) return [];
         let constellations = JSON.parse(result) as Constellation[];
-        constellations.forEach((_, index) => {constellations[index].isEditing = false;});
+        constellations.forEach((_, index) => { constellations[index].isEditing = false; });
         return constellations;
     }
 
@@ -147,12 +148,15 @@ function ExoplanetSearchResult() {
                     >
                         <Canvas
                             shadows
-                            className={css.canvas}
+                            className={`${css.canvas} scene`}
                             camera={{
                                 position: [0, 0, 10],
                                 far: 100000,
                             }}
                             style={{ position: "absolute", zIndex: 1 }}
+                            gl={{ preserveDrawingBuffer: true }}
+
+
                         >
                             <ambientLight intensity={0.5} />
                             <directionalLight
@@ -169,9 +173,9 @@ function ExoplanetSearchResult() {
                                 updateConstellations={updateConstellations}
                                 getFreeEdgeID={getFreeEdgeID}
                                 isActive={showConstellationMenu}
-                                ra = {planetData.ra}
-                                dec = {planetData.dec}
-                                distance = {planetData.distance}
+                                ra={planetData.ra}
+                                dec={planetData.dec}
+                                distance={planetData.distance}
                             />
                             <OrbitControls
                                 enableZoom={true}
@@ -269,12 +273,13 @@ function ExoplanetSearchResult() {
                         </>
                     )}
                     <div className={css.displayButtons} style={{ backgroundImage: `url(/${displayButtons ? 'hide' : 'show'}Icon.png` }} onClick={() => setDisplayButtons(!displayButtons)}></div>
-
+                    <button onClick={() => exportToPng()} style={{ position: 'absolute', zIndex: 99999 }}>export</button>
                 </>
             ) : (
                 <p>No planet data found.</p>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 
