@@ -52,7 +52,7 @@ export default function ConstellationsMenu({
                             style={{
                                 height:
                                     constellation.isEditing &&
-                                    showColorSelection
+                                        showColorSelection
                                         ? "100px"
                                         : "60px",
                                 borderColor: constellation.isShown
@@ -75,6 +75,7 @@ export default function ConstellationsMenu({
                                                 )
                                             }
                                             className={css.nameInput}
+                                            maxLength={20}
                                         />
                                     ) : (
                                         <p style={{ paddingLeft: "4px" }}>

@@ -78,10 +78,12 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
+    width: 100%
 }
 
 .constellationContent {
     flex: 1;
+    width: 90%;
     border: 3px solid;
     border-radius: 4px;
     padding: 8px;
@@ -99,6 +101,12 @@
     justify-content: space-between;
 }
 
+.constellationHeader p {
+    width: 290px;
+    position: relative;
+    word-wrap: break-word;
+}
+
 .nameInput {
     width: 100%;
     border: none;
@@ -106,11 +114,12 @@
     color: white;
     background: transparent;
     font-family: var(--font-family);
+    word-wrap: normal;
 }
 
 .nameInput:focus {
     outline: none;
-    border: none; 
+    border: none;
 }
 
 .buttonGroup {
@@ -126,7 +135,7 @@
     padding: 8px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between ;
+    justify-content: space-between;
     gap: 8px;
 }
 
