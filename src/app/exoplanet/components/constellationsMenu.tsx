@@ -44,8 +44,14 @@ export default function ConstellationsMenu({
                         <div
                             className={css.constellationContent}
                             style={{
-                                height: constellation.isEditing && showColorSelection ? "100px" : "60px",
-                                borderColor: constellation.isShown ? colorNumToCSS(constellation.color) : "gray",
+                                height:
+                                    constellation.isEditing &&
+                                    showColorSelection
+                                        ? "100px"
+                                        : "60px",
+                                borderColor: constellation.isShown
+                                    ? colorNumToCSS(constellation.color)
+                                    : "gray",
                             }}
                         >
                             <div className={css.constellationHeader}>
@@ -55,14 +61,17 @@ export default function ConstellationsMenu({
                                             type="text"
                                             value={constellation.name}
                                             onChange={(e) =>
-                                                updateConstellations(constellation.id, {
-                                                    name: e.target.value,
-                                                })
+                                                updateConstellations(
+                                                    constellation.id,
+                                                    {
+                                                        name: e.target.value,
+                                                    }
+                                                )
                                             }
                                             className={css.nameInput}
                                         />
                                     ) : (
-                                        constellation.name
+                                        <p style={{paddingLeft:'4px'}}> {constellation.name}</p>
                                     )}
                                 </div>
                                 <div className={css.buttonGroup}>
@@ -74,7 +83,9 @@ export default function ConstellationsMenu({
                                         />
                                     )}
                                     <CustomSmallButton
-                                        text={constellation.isEditing ? "✓" : "🖋"}
+                                        text={
+                                            constellation.isEditing ? "✓" : "🖋"
+                                        }
                                         backgroundColor={
                                             constellation.isShown
                                                 ? constellation.isEditing
@@ -86,7 +97,9 @@ export default function ConstellationsMenu({
                                             if (constellation.isShown)
                                                 if (constellation.isEditing) {
                                                     stopEditing();
-                                                    setShowColorSelection(false);
+                                                    setShowColorSelection(
+                                                        false
+                                                    );
                                                 } else startEditing(index);
                                         }}
                                     />
@@ -98,16 +111,26 @@ export default function ConstellationsMenu({
                                         <div
                                             key={color}
                                             className={css.colorOption}
-                                            style={{ backgroundColor: colorNumToCSS(color) }}
+                                            style={{
+                                                backgroundColor:
+                                                    colorNumToCSS(color),
+                                            }}
                                             onClick={() => {
-                                                const updatedConnections = constellation.connections.map((connection) => ({
-                                                    ...connection,
-                                                    color: color,
-                                                }));
-                                                updateConstellations(constellation.id, {
-                                                    color: color,
-                                                    connections: updatedConnections,
-                                                });
+                                                const updatedConnections =
+                                                    constellation.connections.map(
+                                                        (connection) => ({
+                                                            ...connection,
+                                                            color: color,
+                                                        })
+                                                    );
+                                                updateConstellations(
+                                                    constellation.id,
+                                                    {
+                                                        color: color,
+                                                        connections:
+                                                            updatedConnections,
+                                                    }
+                                                );
                                                 setShowColorSelection(false);
                                             }}
                                         />
@@ -118,7 +141,9 @@ export default function ConstellationsMenu({
                         <div className={css.actionsContainer}>
                             <CustomSmallButton
                                 text={"👁"}
-                                backgroundColor={constellation.isShown ? "#0066FF" : "grey"}
+                                backgroundColor={
+                                    constellation.isShown ? "#0066FF" : "grey"
+                                }
                                 onClick={() => {
                                     if (constellation.isEditing) stopEditing();
                                     updateConstellations(constellation.id, {
@@ -129,7 +154,9 @@ export default function ConstellationsMenu({
                             <CustomSmallButton
                                 text={"×"}
                                 backgroundColor={"#ff0000"}
-                                onClick={() => deleteConstellations(constellation.id)}
+                                onClick={() =>
+                                    deleteConstellations(constellation.id)
+                                }
                             />
                         </div>
                     </div>

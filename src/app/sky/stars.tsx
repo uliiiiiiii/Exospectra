@@ -117,20 +117,13 @@ export default function StarsBackground({
     }
 
     function getStarPosition(star: SmallStar) {
-        return raDecToCartesian(star.ra, star.dec, 10000);
+        return raDecToCartesian(star.ra, star.dec, 10000+star.distance);
     }
 
     const geometry = useMemo(() => {
         const positions: number[] = [];
         const colors: number[] = [];
         const sizes: number[] = [];
-
-        // Collect star data into an array
-        // const starData: {
-        //     pos: { x: number; y: number; z: number };
-        //     color: { r: number; g: number; b: number };
-        //     size: number;
-        // }[] = [];
 
         stars.forEach((old_star: SmallStar) => {
             const star = translateStar(old_star);
@@ -153,23 +146,8 @@ export default function StarsBackground({
             if (size_px > 3000) size_px = 3000;
 
             sizes.push(size_px);
-            // sizes.push(Math.min(1000,size_px));
         });
 
-        // // Sort the star data by size in descending order
-        // starData.sort((a, b) => b.size - a.size);
-
-        // // Clear original arrays
-        // positions.length = 0;
-        // colors.length = 0;
-        // sizes.length = 0;
-
-        // // Populate sorted arrays
-        // starData.forEach((data) => {
-        //     positions.push(data.pos.x, data.pos.y, data.pos.z);
-        //     colors.push(data.color.r, data.color.g, data.color.b);
-        //     sizes.push(data.size);
-        // });
         const geom = new THREE.BufferGeometry();
         geom.setAttribute(
             "position",
@@ -200,7 +178,18 @@ export default function StarsBackground({
                 uniform sampler2D pointTexture;
                 varying vec3 vColor;
                 void main() {
+                    // Calculate brightness as the average of the RGB values
+                    float brightness = (vColor.r + vColor.g + vColor.b) / 3.0;
+
+                    // Discard the fragment if brightness is less than 0.5
+                    if (brightness < 0.5) {
+                        discard;
+                    }
+
+                    // Set the color
                     gl_FragColor = vec4(vColor, 1.0);
+
+                    // Apply the texture
                     gl_FragColor = gl_FragColor * texture2D(pointTexture, gl_PointCoord);
                 }
             `,
