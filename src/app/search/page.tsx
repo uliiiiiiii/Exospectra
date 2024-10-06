@@ -17,10 +17,8 @@ function Search() {
                 setLoading(false);
                 if (data) {
                     if (data.type === "exoplanet") {
-                        alert('found an exoplanet')
                         router.push(`/exoplanet?name=${encodeURIComponent(planetName)}`);
                     } else if (data.type === "star") {
-                        alert('found system')
                         router.push(`/system?name=${encodeURIComponent(planetName)}`);
                     }
                 }
