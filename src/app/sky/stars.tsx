@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { useRef, useMemo, useEffect, useState } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
-import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { SmallStar } from "@/types/small_star";
 import BVtoRGB from "../utils/small_star/BVtoRGB";
 import { TextureLoader } from "three";
@@ -127,17 +126,17 @@ export default function StarsBackground({
         const sizes: number[] = [];
 
         stars.forEach((old_star: SmallStar) => {
-            let star = translateStar(old_star);
+            const star = translateStar(old_star);
             const pos = getStarPosition(star);
             const color = BVtoRGB(star.bv_color);
             positions.push(pos.x, pos.y, pos.z);
-            let brightness = 1;
+            const brightness = 1;
             colors.push(
                 color.r * brightness,
                 color.g * brightness,
                 color.b * brightness
             );
-            let size = getStarAngularSize(
+            const size = getStarAngularSize(
                 star.distance,
                 star.magnitude,
                 star.bv_color,
@@ -269,6 +268,7 @@ export default function StarsBackground({
         };
 
         const handleMouseUp = (event: MouseEvent) => {
+            console.log(event)
             // Only trigger click if we weren't dragging
             if (!isDragging.current && hoveredStarIndex !== null) {
                 const clickedStar = translateStar(stars[hoveredStarIndex]);
@@ -301,7 +301,6 @@ export default function StarsBackground({
         };
     }, [stars, camera, hoveredStarIndex]);
 
-    const [connections, setConnections] = useState<StarConnection[]>([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [startingStarIndex, setStartingStarIndex] = useState<number>(-1);
     const [clickedEdge, setClickedEdge] = useState<StarConnection | null>(null);
@@ -442,17 +441,17 @@ export default function StarsBackground({
             opacity: 0.6,
         });
 
-        const largerGeometry = new THREE.TubeGeometry(
-            curve,
-            50,
-            connection.thickness * 4, // Multiply thickness for larger click area
-            8,
-            false
-        );
-        const invisibleMaterial = new THREE.MeshBasicMaterial({
-            transparent: true,
-            opacity: 0, // Make the mesh invisible
-        });
+        // const largerGeometry = new THREE.TubeGeometry(
+        //     curve,
+        //     50,
+        //     connection.thickness * 4, // Multiply thickness for larger click area
+        //     8,
+        //     false
+        // );
+        // const invisibleMaterial = new THREE.MeshBasicMaterial({
+        //     transparent: true,
+        //     opacity: 0, // Make the mesh invisible
+        // });
 
         return (
             <>
@@ -533,9 +532,9 @@ export default function StarsBackground({
             {/* <meshBasicMaterial map={texture} side={THREE.BackSide} /> */}
             <points ref={pointsRef} geometry={geometry} material={material} />
 
-            {constellations.map((constellation, index) => {
+            {constellations.map((constellation) => {
                 if (!constellation.isShown) return null;
-                return constellation.connections.map((connection, index) =>
+                return constellation.connections.map((connection) =>
                     createStarConnection(connection)
                 );
             })}

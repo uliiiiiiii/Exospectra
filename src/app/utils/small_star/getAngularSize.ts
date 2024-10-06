@@ -39,7 +39,7 @@ export default function getStarAngularSize(
     bp_rp_color: number,
     temperature?: number
 ) {
-    let temp = temperature ??estimateTemperature(bp_rp_color);
+    const temp = temperature ??estimateTemperature(bp_rp_color);
 
     const luminosity = calculateLuminosity(magnitude, distance);
     const radius = calculateRadius(luminosity, temp);

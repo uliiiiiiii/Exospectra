@@ -34,7 +34,7 @@ export default function ConstellationsMenu({
         <div className={css.mainMenuContainer}>
             <div className={css.menuHeader}>
                 <div className={css.menuTitle}>Constellation Menu</div>
-                <button className={css.closeButton} onClick={() => onClose()}>
+                <button className={css.closeButton} onClick={() => { onClose() }}>
                     &times;
                 </button>
             </div>
@@ -78,14 +78,8 @@ export default function ConstellationsMenu({
                                     {constellation.isEditing && (
                                         <CustomSmallButton
                                             text={""}
-                                            backgroundColor={colorNumToCSS(
-                                                constellation.color
-                                            )}
-                                            onClick={() =>
-                                                setShowColorSelection(
-                                                    !showColorSelection
-                                                )
-                                            }
+                                            backgroundColor={colorNumToCSS(constellation.color)}
+                                            onClick={() => {setShowColorSelection(!showColorSelection)}}
                                         />
                                     )}
                                     <CustomSmallButton

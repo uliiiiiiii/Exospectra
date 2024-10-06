@@ -29,7 +29,7 @@ function ExoplanetSearchResult() {
     }
 
     function getFreeID() {
-        let result = localStorage.getItem("firstFreeID");
+        const result = localStorage.getItem("firstFreeID");
         let new_id = 1; //if none
         if (result != null) {
             new_id = parseInt(result, 10) + 1;
@@ -39,7 +39,7 @@ function ExoplanetSearchResult() {
     }
 
     function getFreeEdgeID() {
-        let result = localStorage.getItem("firstFreeEdgeID");
+        const result = localStorage.getItem("firstFreeEdgeID");
         let new_id = 1; //if none
         if (result != null) {
             new_id = parseInt(result, 10) + 1;
@@ -55,7 +55,7 @@ function ExoplanetSearchResult() {
         id: number,
         newConstellation: Partial<Constellation>
     ) {
-        let newConstellations = [...constellations];
+        const newConstellations = [...constellations];
         newConstellations.forEach((constellation, index) => {
             if (constellation.id == id) {
                 newConstellations[index] = {
@@ -91,7 +91,7 @@ function ExoplanetSearchResult() {
     }
 
     function recieveConstellations() {
-        let result = localStorage.getItem("constellations");
+        const result = localStorage.getItem("constellations");
         if (result == null) return [];
         let constellations = JSON.parse(result) as Constellation[];
         constellations.forEach((_, index) => {
