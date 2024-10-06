@@ -45,5 +45,6 @@ export default function getStarAngularSize(
     const radius = calculateRadius(luminosity, temp);
     let angularSize = calculateAngularSize(radius, distance);
     if (temperature == null) angularSize /= 10;
+    
     return (angularSize * 180) / Math.PI;
 }

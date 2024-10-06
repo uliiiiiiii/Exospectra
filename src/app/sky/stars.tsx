@@ -20,7 +20,7 @@ export default function StarsBackground({
     isActive,
     ra,
     dec,
-    distance
+    distance,
 }: {
     constellations: Constellation[];
     isEditing: boolean;
@@ -30,9 +30,9 @@ export default function StarsBackground({
     isActive: boolean;
     ra: number;
     dec: number;
-    distance: number
+    distance: number;
 }) {
-    const texture = useLoader(EXRLoader, "/textures/starmap_2020_4k.exr");
+    // const texture = useLoader(EXRLoader, "/textures/starmap_2020_4k.exr");
     const star_texture = useLoader(TextureLoader, "/textures/star_texture.png");
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -65,6 +65,58 @@ export default function StarsBackground({
         fetchData();
     }, []);
 
+    function translateStar(star: SmallStar): SmallStar {
+        const base_ra = ra;
+        const base_dec = dec;
+        const base_distance = distance;
+        // Convert all angles to radians
+        const ra1 = THREE.MathUtils.degToRad(star.ra);
+        const dec1 = THREE.MathUtils.degToRad(star.dec);
+        const ra2 = THREE.MathUtils.degToRad(base_ra);
+        const dec2 = THREE.MathUtils.degToRad(base_dec);
+
+        // Convert (ra, dec, distance) to Cartesian coordinates
+        // For star
+        const x1 = star.distance * Math.cos(dec1) * Math.cos(ra1);
+        const y1 = star.distance * Math.cos(dec1) * Math.sin(ra1);
+        const z1 = star.distance * Math.sin(dec1);
+
+        // For observation point
+        const x2 = base_distance * Math.cos(dec2) * Math.cos(ra2);
+        const y2 = base_distance * Math.cos(dec2) * Math.sin(ra2);
+        const z2 = base_distance * Math.sin(dec2);
+
+        // Calculate relative position
+        const dx = x1 - x2;
+        const dy = y1 - y2;
+        const dz = z1 - z2;
+
+        // Convert back to spherical coordinates
+        const new_distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        const new_dec = Math.asin(dz / new_distance);
+        const new_ra = Math.atan2(dy, dx);
+
+        // Calculate absolute magnitude first (using the original distance in parsecs)
+        // M = m - 5 * (log10(distance) - 1)
+        const absoluteMagnitude =
+            star.magnitude - 5 * (Math.log10(star.distance) - 1);
+
+        // Calculate new apparent magnitude from the new distance
+        // m = M + 5 * (log10(distance) - 1)
+        const new_magnitude =
+            absoluteMagnitude + 5 * (Math.log10(new_distance) - 1);
+
+        return {
+            ...star,
+            ra: THREE.MathUtils.radToDeg(
+                new_ra < 0 ? new_ra + 2 * Math.PI : new_ra
+            ), // Normalize RA to [0, 360)
+            dec: THREE.MathUtils.radToDeg(new_dec),
+            distance: new_distance,
+            magnitude: new_magnitude,
+        };
+    }
+
     function getStarPosition(star: SmallStar) {
         return raDecToCartesian(star.ra, star.dec, 10000);
     }
@@ -74,7 +126,15 @@ export default function StarsBackground({
         const colors: number[] = [];
         const sizes: number[] = [];
 
-        stars.forEach((star: SmallStar) => {
+        // Collect star data into an array
+        // const starData: {
+        //     pos: { x: number; y: number; z: number };
+        //     color: { r: number; g: number; b: number };
+        //     size: number;
+        // }[] = [];
+
+        stars.forEach((old_star: SmallStar) => {
+            let star = translateStar(old_star);
             const pos = getStarPosition(star);
             const color = BVtoRGB(star.bv_color);
             positions.push(pos.x, pos.y, pos.z);
@@ -91,9 +151,26 @@ export default function StarsBackground({
                 star.effective_temperature
             );
             let size_px = size * 3600 * 1e5;
+            if (size_px > 3000) size_px = 3000;
+
             sizes.push(size_px);
+            // sizes.push(Math.min(1000,size_px));
         });
 
+        // // Sort the star data by size in descending order
+        // starData.sort((a, b) => b.size - a.size);
+
+        // // Clear original arrays
+        // positions.length = 0;
+        // colors.length = 0;
+        // sizes.length = 0;
+
+        // // Populate sorted arrays
+        // starData.forEach((data) => {
+        //     positions.push(data.pos.x, data.pos.y, data.pos.z);
+        //     colors.push(data.color.r, data.color.g, data.color.b);
+        //     sizes.push(data.size);
+        // });
         const geom = new THREE.BufferGeometry();
         geom.setAttribute(
             "position",
@@ -141,7 +218,7 @@ export default function StarsBackground({
 
         intersects.forEach((intersect) => {
             if (typeof intersect.index === "number") {
-                const star = stars[intersect.index];
+                const star = translateStar(stars[intersect.index]);
                 const angularSize = getStarAngularSize(
                     star.distance,
                     star.magnitude,
@@ -205,7 +282,7 @@ export default function StarsBackground({
         const handleMouseUp = (event: MouseEvent) => {
             // Only trigger click if we weren't dragging
             if (!isDragging.current && hoveredStarIndex !== null) {
-                const clickedStar = stars[hoveredStarIndex];
+                const clickedStar = translateStar(stars[hoveredStarIndex]);
                 console.log("Clicked star details:", {
                     ra: clickedStar.ra,
                     dec: clickedStar.dec,
@@ -216,8 +293,7 @@ export default function StarsBackground({
                 });
                 setClickedStarIndex(hoveredStarIndex);
                 const pos = getStarPosition(clickedStar);
-                if (isActive)
-                    setClickedStarCoords(pos);
+                if (isActive) setClickedStarCoords(pos);
             }
 
             // Reset mouse tracking
@@ -353,10 +429,11 @@ export default function StarsBackground({
     // Function to create a line between two stars
     const createStarConnection = (connection: StarConnection) => {
         if (connection.startStar < 0 || connection.endStar < 0) return null;
-        const star1 = stars[connection.startStar];
-        const star2 = stars[connection.endStar];
-        if (!star1 || !star2) return null;
-
+        const prestar1 = stars[connection.startStar];
+        const prestar2 = stars[connection.endStar];
+        if (!prestar1 || !prestar2) return null;
+        const star1 = translateStar(prestar1);
+        const star2 = translateStar(prestar2);
         const pos1 = getStarPosition(star1);
         const pos2 = getStarPosition(star2);
 
@@ -443,9 +520,10 @@ export default function StarsBackground({
                     connection_id: getFreeEdgeID(),
                 });
                 alert(
-                    `New edge ${constellations[editingIndex].connections[
-                        constellations[editingIndex].connections.length - 1
-                    ].connection_id
+                    `New edge ${
+                        constellations[editingIndex].connections[
+                            constellations[editingIndex].connections.length - 1
+                        ].connection_id
                     }`
                 );
                 // alert(`${constellations[editingIndex].connections.length}`);
@@ -463,6 +541,8 @@ export default function StarsBackground({
 
     return (
         <>
+            {/* <sphereGeometry args={[9000, 64, 64]} /> */}
+            {/* <meshBasicMaterial map={texture} side={THREE.BackSide} /> */}
             <points ref={pointsRef} geometry={geometry} material={material} />
 
             {constellations.map((constellation, index) => {
@@ -474,7 +554,10 @@ export default function StarsBackground({
             {isDrawing &&
                 createStarConnection({
                     startStar: startingStarIndex,
-                    endStar: hoveredStarIndex!,
+                    endStar:
+                        clickedStarIndex == startingStarIndex
+                            ? hoveredStarIndex!
+                            : clickedStarIndex,
                     thickness: defaultConnectionThickness,
                     color: constellations[editingIndex].color,
                     constelation_id: constellations[editingIndex].id,

@@ -19,7 +19,7 @@ export default async function getStars() {
     if (star_list.length > 0) {
         return star_list;
     } else {
-        alert(`start`);
+        // alert(`start`);
         let global_id = 0;
         for (let i = 0; i < STARS_JSON_URL.length; i++) {
             try {
@@ -43,7 +43,7 @@ export default async function getStars() {
                 return [];
             }
         }
-        alert(`stars${star_list.length}`);
+        // alert(`stars${star_list.length}`);
         return star_list;
     }
 }
