@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import searchObject from '../utils/searchObject';
+import Loading from '../components/loading/loading';
 
 function Search() {
     const searchParams = useSearchParams();
@@ -36,10 +37,7 @@ function Search() {
         <div>
             {!planetName ? (
                 <h1>No object name provided.</h1>
-            ) : (<>
-                {loading ? <p>Loading...</p>
-                    : <p>Loaded (this page will be used for preloading and calculation of all info which will be used in the ExoplanetSystem or Exoplanet model)</p>}
-            </>
+            ) : (<Loading />
             )}
         </div>
     );

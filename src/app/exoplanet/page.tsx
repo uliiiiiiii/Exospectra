@@ -10,6 +10,7 @@ import { PlanetProps } from '@/types/planet';
 import { Html } from "@react-three/drei";
 import ExospectraLabel from '../components/ExospectraLabel';
 import Image from 'next/image';
+import Loading from '../components/loading/loading';
 
 function ExoplanetSearchResult() {
     const searchParams = useSearchParams();
@@ -43,7 +44,7 @@ function ExoplanetSearchResult() {
     };
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Loading />;
     }
 
     if (!planetName) {
