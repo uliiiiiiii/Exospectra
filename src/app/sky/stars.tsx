@@ -18,6 +18,9 @@ export default function StarsBackground({
     updateConstellations,
     getFreeEdgeID,
     isActive,
+    ra,
+    dec,
+    distance
 }: {
     constellations: Constellation[];
     isEditing: boolean;
@@ -25,6 +28,9 @@ export default function StarsBackground({
     updateConstellations: Function;
     getFreeEdgeID: Function;
     isActive: boolean;
+    ra: number;
+    dec: number;
+    distance: number
 }) {
     const texture = useLoader(EXRLoader, "/textures/starmap_2020_4k.exr");
     const star_texture = useLoader(TextureLoader, "/textures/star_texture.png");
@@ -211,7 +217,7 @@ export default function StarsBackground({
                 setClickedStarIndex(hoveredStarIndex);
                 const pos = getStarPosition(clickedStar);
                 if (isActive)
-                setClickedStarCoords(pos);
+                    setClickedStarCoords(pos);
             }
 
             // Reset mouse tracking
@@ -437,10 +443,9 @@ export default function StarsBackground({
                     connection_id: getFreeEdgeID(),
                 });
                 alert(
-                    `New edge ${
-                        constellations[editingIndex].connections[
-                            constellations[editingIndex].connections.length - 1
-                        ].connection_id
+                    `New edge ${constellations[editingIndex].connections[
+                        constellations[editingIndex].connections.length - 1
+                    ].connection_id
                     }`
                 );
                 // alert(`${constellations[editingIndex].connections.length}`);
