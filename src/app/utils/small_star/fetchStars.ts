@@ -23,12 +23,12 @@ export default async function getStars() {
           star_list.push({
             id: global_id,
             name: `${STARS_JSON_URL[i].data[j][0]}`,
-            ra: STARS_JSON_URL[i].data[j][1] ? STARS_JSON_URL[i].data[j][1] : 1, //Type 'number | null' is not assignable to type 'number'.
-            dec: STARS_JSON_URL[i].data[j][2],
-            distance: STARS_JSON_URL[i].data[j][4],
-            magnitude: STARS_JSON_URL[i].data[j][5],
-            bv_color: STARS_JSON_URL[i].data[j][6],
-            effective_temperature: STARS_JSON_URL[i].data[j][7],
+            ra: STARS_JSON_URL[i].data[j][1]!,
+            dec: STARS_JSON_URL[i].data[j][2]!,
+            distance: STARS_JSON_URL[i].data[j][4]!,
+            magnitude: STARS_JSON_URL[i].data[j][5]!,
+            bv_color: STARS_JSON_URL[i].data[j][6]!,
+            effective_temperature: STARS_JSON_URL[i].data[j][7]!,
           });
           global_id++;
         }
