@@ -137,62 +137,69 @@ function ExoplanetSearchResult() {
                             }}
                             style={{ position: "absolute", zIndex: 1 }}
                         >
+                            <Html fullscreen>
                             {!showConstellationMenu && (
-                                <Html fullscreen>
-                                    <div className={css.htmlContent}>
-                                        <div className={css.infoBlock}>
-                                            <p>
-                                                Search Results for:{" "}
-                                                {planetName
-                                                    ? planetName
-                                                    : "N/A"}
-                                            </p>
-                                            <ul className={css.dataBlock}>
-                                                <li>
-                                                    Mass (Earth Masses):{" "}
-                                                    {planetData.mass
-                                                        ? planetData.mass
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Radius (kilometers):{" "}
-                                                    {planetData.radius
-                                                        ? planetData.radius
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Type:{" "}
-                                                    {planetData.type
-                                                        ? planetData.type
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Orbital period (days):{" "}
-                                                    {planetData.orbitalPeriod
-                                                        ? planetData.orbitalPeriod
-                                                        : "N/A"}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className={css.other}>
-                                            <ExospectraLabel />
-                                            <div className={css.dragTool}>
-                                                <Image
-                                                    src="/rocket.png"
-                                                    width={90}
-                                                    height={90}
-                                                    alt="rocket"
-                                                />
-                                                <p>
-                                                    Drag the spaceship to the
-                                                    location where you want to
-                                                    see the sky
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Html>
-                            )}
+
+<div className={css.htmlContent}>
+    <div className={css.infoBlock}>
+        <p>
+            Search Results for:{" "}
+            {planetName
+                ? planetName
+                : "N/A"}
+        </p>
+        <ul className={css.dataBlock}>
+            <li>
+                Mass (Earth Masses):{" "}
+                {planetData.mass
+                    ? planetData.mass
+                    : "N/A"}
+            </li>
+            <li>
+                Radius (kilometers):{" "}
+                {planetData.radius
+                    ? planetData.radius
+                    : "N/A"}
+            </li>
+            <li>
+                Type:{" "}
+                {planetData.type
+                    ? planetData.type
+                    : "N/A"}
+            </li>
+            <li>
+                Orbital period (days):{" "}
+                {planetData.orbitalPeriod
+                    ? planetData.orbitalPeriod
+                    : "N/A"}
+            </li>
+        </ul>
+    </div>
+    <div className={css.other}>
+        <div className={css.right}><ExospectraLabel />
+            <div className={css.dragTool}>
+                <Image
+                    src="/rocket.png"
+                    width={90}
+                    height={90}
+                    alt="rocket"
+                />
+                <p>
+                    Drag the spaceship to the
+                    location where you want to
+                    see the sky
+                </p>
+            </div>
+        </div>
+        <ConstellationMenuButton
+            onPress={() => {
+                setShowConstellationMenu(true);
+            }}
+        />
+    </div>
+</div>
+)}
+                            </Html>
                             <ambientLight intensity={0.5} />
                             <directionalLight
                                 position={[10, 10, 10]}
@@ -228,7 +235,7 @@ function ExoplanetSearchResult() {
                             pointerEvents: "auto",
                         }}
                     >
-                        {showConstellationMenu ? (
+                        {showConstellationMenu &&
                             <ConstellationsMenu
                                 onClose={() => {
                                     setShowConstellationMenu(false);
@@ -241,13 +248,8 @@ function ExoplanetSearchResult() {
                                 stopEditing={stopEditing}
                                 getFreeID={getFreeID}
                             />
-                        ) : (
-                            <ConstellationMenuButton
-                                onPress={() => {
-                                    setShowConstellationMenu(true);
-                                }}
-                            />
-                        )}
+
+                        }
                     </div>
                 </>
             ) : (

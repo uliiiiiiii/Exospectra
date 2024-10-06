@@ -1,11 +1,30 @@
-.menuButton {
-    width: 100px;
-    height: 100px;
-    color: grey;
-    background-color:#2b2a33;
-    border-radius:16px;
-    cursor: pointer;
+.buttonArea {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: #fff;
+    width: 369px;
+    align-items: center;
+    text-align: center;
+    gap: 15px
 }
+
+.modeButton {
+    width: 164px;
+    height: 125px;
+    background-color: var(--background-no-hover);
+    border-radius: 50px;
+    border: 6px solid var(--border-color);
+    background-repeat: no-repeat;
+    background-size: 0.5;
+    background-position: center;
+}
+
+.modeButton:hover {
+    background-color: var(--background-hover);
+}
+
 
 .mainMenuContainer {
     display: flex;

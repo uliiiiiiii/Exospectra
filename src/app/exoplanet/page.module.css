@@ -34,11 +34,11 @@
     }
 
     .dataBlock {
-        border: 6px solid #181818;
+        border: 6px solid var(--border-color);
         border-radius: 50px;
         width: 560px;
         height: 272px;
-        background: rgba(184, 184, 184, 0.26);
+        background: var(--background-no-hover);
         font-family: var(--font-family);
         font-weight: 400;
         font-size: 16px;
@@ -51,8 +51,18 @@
     .other {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        width: 556px;
+        align-items: flex-end;
+        height: calc(100% - 100px);
+        position: absolute;
+        right: 60px;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
         gap: 66px;
-        width: 556px
     }
 
     .dragTool {
@@ -66,4 +76,6 @@
         text-wrap: wrap;
         line-height: 28px
     }
+
+
 }
