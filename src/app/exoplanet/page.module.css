@@ -2,12 +2,11 @@
     width: 100%;
     height: 100%;
     position: absolute;
-
 }
 
 .canvas {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 @media screen and (min-width: 1440px) {
@@ -16,6 +15,7 @@
         flex-direction: row;
         justify-content: space-between;
         margin: 50px;
+        
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
@@ -31,6 +31,10 @@
         color: #fff;
         width: 560px;
         text-wrap: normal;
+        position: absolute;
+        left: 50px;
+        top: 50px;
+        z-index: 1000;
     }
 
     .dataBlock {
@@ -54,9 +58,27 @@
         justify-content: space-between;
         width: 556px;
         align-items: flex-end;
-        height: calc(100% - 100px);
+        /* height: calc(100% - 100px); */
         position: absolute;
         right: 60px;
+        position: absolute;
+        top: 50px;
+        left: calc(100%-556px);
+        z-index: 1000;
+    }
+
+    .constellation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 556px;
+        align-items: flex-end;
+        height: 100px;
+        position: absolute;
+        right: 50px;
+        bottom: 100px;
+        position: absolute;
+        z-index: 1000;
     }
 
     .right {
@@ -74,8 +96,6 @@
         flex-direction: row;
         gap: 24px;
         text-wrap: wrap;
-        line-height: 28px
+        line-height: 28px;
     }
-
-
 }

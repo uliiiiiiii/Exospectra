@@ -19,7 +19,6 @@ import ConstellationsMenu from "./components/constellationsMenu";
 let currentIDavailable = 0;
 let currentEdgeIDavailable = 0;
 
-
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
     const [constellations, setConstellations] = useState<Constellation[]>([]);
@@ -218,6 +217,7 @@ function ExoplanetSearchResult() {
                             />
                             <OrbitControls
                                 enableZoom={true}
+                                enablePan={false}
                                 minDistance={30}
                                 maxDistance={110}
                             />
@@ -235,7 +235,7 @@ function ExoplanetSearchResult() {
                             pointerEvents: "auto",
                         }}
                     >
-                        {showConstellationMenu &&
+                        {showConstellationMenu && (
                             <ConstellationsMenu
                                 onClose={() => {
                                     setShowConstellationMenu(false);
@@ -248,9 +248,68 @@ function ExoplanetSearchResult() {
                                 stopEditing={stopEditing}
                                 getFreeID={getFreeID}
                             />
-
-                        }
+                        )}
                     </div>
+                    {!showConstellationMenu && (
+                        <>
+                            <div className={css.infoBlock}>
+                                <p>
+                                    Search Results for:{" "}
+                                    {planetName ? planetName : "N/A"}
+                                </p>
+                                <ul className={css.dataBlock}>
+                                    <li>
+                                        Mass (Earth Masses):{" "}
+                                        {planetData.mass
+                                            ? planetData.mass
+                                            : "N/A"}
+                                    </li>
+                                    <li>
+                                        Radius (kilometers):{" "}
+                                        {planetData.radius
+                                            ? planetData.radius
+                                            : "N/A"}
+                                    </li>
+                                    <li>
+                                        Type:{" "}
+                                        {planetData.type
+                                            ? planetData.type
+                                            : "N/A"}
+                                    </li>
+                                    <li>
+                                        Orbital period (days):{" "}
+                                        {planetData.orbitalPeriod
+                                            ? planetData.orbitalPeriod
+                                            : "N/A"}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={css.other}>
+                                <div className={css.right}>
+                                    <ExospectraLabel />
+                                    <div className={css.dragTool}>
+                                        <Image
+                                            src="/rocket.png"
+                                            width={90}
+                                            height={90}
+                                            alt="rocket"
+                                        />
+                                        <p>
+                                            Drag the spaceship to the location
+                                            where you want to see the sky
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={css.constellation}>
+                                <ConstellationMenuButton
+                                    onPress={() => {
+                                        setShowConstellationMenu(true);
+                                    }}
+                                />
+                            </div>
+                        </>
+                    )}
                 </>
             ) : (
                 <p>No planet data found.</p>

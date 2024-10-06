@@ -210,6 +210,7 @@ export default function StarsBackground({
                     clickedStar.dec,
                     10000
                 );
+                if (isActive)
                 setClickedStarCoords(pos);
             }
 
@@ -435,13 +436,13 @@ export default function StarsBackground({
                     constelation_id: constellations[editingIndex].id,
                     connection_id: getFreeEdgeID(),
                 });
-                alert(
-                    `New edge ${
-                        constellations[editingIndex].connections[
-                            constellations[editingIndex].connections.length - 1
-                        ].connection_id
-                    }`
-                );
+                // alert(
+                //     `New edge ${
+                //         constellations[editingIndex].connections[
+                //             constellations[editingIndex].connections.length - 1
+                //         ].connection_id
+                //     }`
+                // );
                 // alert(`${constellations[editingIndex].connections.length}`);
                 updateConstellations(editingIndex, {
                     connections: constellations[editingIndex].connections,
