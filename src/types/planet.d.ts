@@ -1,5 +1,15 @@
 import * as THREE from "three";
 
+export interface WaveData {
+  minWaveLength: number;
+  maxWaveLength: number;
+}
+
+export interface WavelengthRecord {
+  minwavelng: number;
+  maxwavelng: number;
+}
+
 export interface PlanetProps {
   name: string;
   mass: number | null; //Earth masses

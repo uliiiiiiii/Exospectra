@@ -28,14 +28,18 @@ function ExoplanetSearchResult() {
     }, [searchParams]);
 
     const fetchPlanetData = async (name: string) => {
-        setTimeout(() => {
+        try {
+            const response = await fetch(`/api/exoplanet?planetName=${name}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch planet data');
+            }
+            const data = await response.json();
+            setPlanetData(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
             setIsLoading(false);
-            const data: PlanetProps = {
-                name: 'Earth (our home)',
-                mass: 1, radius: 2, semiMajorAxis: 1, orbitalPeriod: 365, orbitalInclination: 2, eccentricity: 1, color: '#add8e6', type: 'Earth'
-            }; //placeholder data
-            setPlanetData(data)
-        })
+        }
     };
 
     if (isLoading) {
@@ -61,12 +65,12 @@ function ExoplanetSearchResult() {
                             <Html fullscreen>
                                 <div className={css.htmlContent}>
                                     <div className={css.infoBlock}>
-                                        <p>Search Results for: {planetName}</p>
+                                        <p>Search Results for: {planetName ? planetName : 'N/A'}</p>
                                         <ul className={css.dataBlock}>
-                                            <li>Mass (Earth Masses): {planetData.mass}</li>
-                                            <li>Radius (kilometers): {planetData.radius}</li>
-                                            <li>Type: {planetData.type}</li>
-                                            <li>Orbital period (days): {planetData.orbitalPeriod}</li>
+                                            <li>Mass (Earth Masses): {planetData.mass ? planetData.mass : 'N/A'}</li>
+                                            <li>Radius (kilometers): {planetData.radius ? planetData.radius : 'N/A'}</li>
+                                            <li>Type: {planetData.type ? planetData.type : 'N/A'}</li>
+                                            <li>Orbital period (days): {planetData.orbitalPeriod ? planetData.orbitalPeriod : 'N/A'}</li>
                                         </ul>
                                     </div>
                                     <div className={css.other}>
@@ -84,7 +88,7 @@ function ExoplanetSearchResult() {
                             <ExoplanetModel data={planetData} />
                             <StarsPlaceholder />
 
-                            <OrbitControls enableZoom={true} />
+                            <OrbitControls enableZoom={true} minDistance={30} maxDistance={110} />
 
                         </Canvas>
                     </div>
