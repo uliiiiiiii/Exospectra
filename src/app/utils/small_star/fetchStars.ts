@@ -3,12 +3,14 @@ import stars_1 from "../../sky/star_data/stars.json" assert { type: "json" };
 import stars_2 from "../../sky/star_data/stars2.json" assert { type: "json" };
 import stars_3 from "../../sky/star_data/stars3.json" assert { type: "json" };
 import stars_4 from "../../sky/star_data/stars4.json" assert { type: "json" };
+import brightest_stars from "../../sky/star_data/brightest_stars.json" assert { type: "json" };
 
 const STARS_JSON_URL = [
     stars_1,
     stars_2,
     stars_3,
     stars_4,
+    brightest_stars,
 ];
 
 let star_list: SmallStar[] = [];
