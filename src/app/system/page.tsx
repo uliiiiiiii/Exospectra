@@ -13,6 +13,7 @@ import { StarProps } from '@/types/star';
 import { PlanetProps } from '@/types/planet';
 import { system as defaultSystemData } from '../utils/placeholders'
 import ExospectraLabel from '../components/ExospectraLabel';
+import Loading from '../components/loading/loading';
 
 function PlanetarySystem({ systemData = defaultSystemData, name }: { systemData: SystemProps; name: string }) {
     return (
@@ -96,7 +97,7 @@ function ExoplanetSystemSearchResult() {
     };
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Loading />;
     }
 
     if (!systemName) {
@@ -108,7 +109,7 @@ function ExoplanetSystemSearchResult() {
 
 export default function ExoplanetSystem() {
     return (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Loading />}>
             <ExoplanetSystemSearchResult />
         </Suspense>
     )
