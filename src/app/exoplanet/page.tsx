@@ -273,7 +273,7 @@ function ExoplanetSearchResult() {
                         </>
                     )}
                     <div className={css.displayButtons} style={{ backgroundImage: `url(/${displayButtons ? 'hide' : 'show'}Icon.png` }} onClick={() => setDisplayButtons(!displayButtons)}></div>
-                    <button onClick={() => exportToPng()} style={{ position: 'absolute', zIndex: 99999 }}>export</button>
+                    <div className={css.exportButton} onClick={() => exportToPng()}></div>
                 </>
             ) : (
                 <p>No planet data found.</p>

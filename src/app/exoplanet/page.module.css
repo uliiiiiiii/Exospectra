@@ -118,3 +118,23 @@
 .displayButtons:hover {
     background-color: var(--background-hover);
 }
+
+.exportButton {
+    width: 164px;
+    height: 125px;
+    background-color: var(--background-no-hover);
+    border-radius: 50px;
+    border: 6px solid var(--border-color);
+    background-repeat: no-repeat;
+    background-size: 0.5;
+    background-image: url('/exportIcon.png');
+    background-position: center;
+    position: absolute;
+    bottom: 30px;
+    left: 264px;
+    z-index: 9999;
+}
+
+.exportButton:hover {
+    background-color: var(--background-hover);
+}
