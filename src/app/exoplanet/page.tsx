@@ -21,7 +21,14 @@ let currentEdgeIDavailable = 0;
 
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
-    const [constellations, setConstellations] = useState<Constellation[]>([]);
+    const [constellations, util_setConstellations] = useState<Constellation[]>(
+        recieveConstellations()
+    );
+
+    function setConstellations(constellations: Constellation[]) {
+        util_setConstellations(constellations);
+        submitConstellations(constellations);
+    }
 
     function getFreeID() {
         currentIDavailable++;
@@ -40,28 +47,20 @@ function ExoplanetSearchResult() {
         index: number,
         newConstellation: Partial<Constellation>
     ) {
-        setConstellations((prevConstellations) => {
-            const newConstellations = [...prevConstellations];
-            newConstellations[index] = {
-                ...newConstellations[index],
-                ...newConstellation,
-            };
-            return newConstellations;
-        });
+        const newConstellations = [...constellations];
+        newConstellations[index] = {
+            ...newConstellations[index],
+            ...newConstellation,
+        };
+        setConstellations(newConstellations);
     }
 
     function deleteConstellation(index: number) {
-        setConstellations((prevConstellations) => {
-            const newConstellations = [...prevConstellations];
-            newConstellations.splice(index, 1);
-            return newConstellations;
-        });
+        setConstellations([...constellations].splice(index, 1));
     }
 
     function addConstellation(newConstellation: Constellation) {
-        setConstellations((prevConstellations) => {
-            return [...prevConstellations, newConstellation];
-        });
+        setConstellations([...constellations, newConstellation]);
     }
 
     function stopEditing() {
@@ -75,6 +74,16 @@ function ExoplanetSearchResult() {
         setIsEditing(true);
         constellations[index].isEditing = true;
         setCurrentEditingIndex(index);
+    }
+
+    function recieveConstellations() {
+        let result = localStorage.getItem("constellations");
+        if (result == null) return [];
+        return JSON.parse(result) as Constellation[];
+    }
+
+    function submitConstellations(constellations: Constellation[]) {
+        localStorage.setItem(`constellations`, JSON.stringify(constellations));
     }
 
     const searchParams = useSearchParams();
@@ -108,7 +117,7 @@ function ExoplanetSearchResult() {
     };
 
     if (isLoading) {
-        return <Loading progress="Found an exoplanet! Fetching information about it... 🌍" />;
+        return <Loading progress="Found a system! Fetching its data... 🌍" />;
     }
 
     if (!planetName) {
@@ -136,69 +145,6 @@ function ExoplanetSearchResult() {
                             }}
                             style={{ position: "absolute", zIndex: 1 }}
                         >
-                            <Html fullscreen>
-                                {!showConstellationMenu && (
-
-                                    <div className={css.htmlContent}>
-                                        <div className={css.infoBlock}>
-                                            <p>
-                                                Search Results for:{" "}
-                                                {planetName
-                                                    ? planetName
-                                                    : "N/A"}
-                                            </p>
-                                            <ul className={css.dataBlock}>
-                                                <li>
-                                                    Mass (Earth Masses):{" "}
-                                                    {planetData.mass
-                                                        ? planetData.mass
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Radius (kilometers):{" "}
-                                                    {planetData.radius
-                                                        ? planetData.radius
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Type:{" "}
-                                                    {planetData.type
-                                                        ? planetData.type
-                                                        : "N/A"}
-                                                </li>
-                                                <li>
-                                                    Orbital period (days):{" "}
-                                                    {planetData.orbitalPeriod
-                                                        ? planetData.orbitalPeriod
-                                                        : "N/A"}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className={css.other}>
-                                            <div className={css.right}><ExospectraLabel />
-                                                <div className={css.dragTool}>
-                                                    <Image
-                                                        src="/rocket.png"
-                                                        width={90}
-                                                        height={90}
-                                                        alt="rocket"
-                                                    />
-                                                    <p>
-                                                        Drag the spaceship to the
-                                                        location where you want to
-                                                        see the sky
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <ConstellationMenuButton
-                                                onPress={() => {
-                                                    setShowConstellationMenu(true);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-                            </Html>
                             <ambientLight intensity={0.5} />
                             <directionalLight
                                 position={[10, 10, 10]}
