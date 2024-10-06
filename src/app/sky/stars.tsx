@@ -117,7 +117,7 @@ export default function StarsBackground({
     }
 
     function getStarPosition(star: SmallStar) {
-        return raDecToCartesian(star.ra, star.dec, 10000+star.distance);
+        return raDecToCartesian(star.ra, star.dec, 10000 + star.distance);
     }
 
     const geometry = useMemo(() => {
@@ -179,10 +179,8 @@ export default function StarsBackground({
                 varying vec3 vColor;
                 void main() {
                     // Calculate brightness as the average of the RGB values
-                    float brightness = (vColor.r + vColor.g + vColor.b) / 3.0;
-
                     // Discard the fragment if brightness is less than 0.5
-                    if (brightness < 0.5) {
+                    if (texture2D(pointTexture, gl_PointCoord).a < 0.06) {
                         discard;
                     }
 
@@ -268,7 +266,7 @@ export default function StarsBackground({
         };
 
         const handleMouseUp = (event: MouseEvent) => {
-            console.log(event)
+            console.log(event);
             // Only trigger click if we weren't dragging
             if (!isDragging.current && hoveredStarIndex !== null) {
                 const clickedStar = translateStar(stars[hoveredStarIndex]);
@@ -280,6 +278,7 @@ export default function StarsBackground({
                     bv_color: clickedStar.bv_color,
                     effective_temperature: clickedStar.effective_temperature,
                 });
+                setClickedEdge(null);
                 setClickedStarIndex(hoveredStarIndex);
                 const pos = getStarPosition(clickedStar);
                 if (isActive) setClickedStarCoords(pos);
@@ -507,12 +506,12 @@ export default function StarsBackground({
                     constelation_id: constellations[editingIndex].id,
                     connection_id: getFreeEdgeID(),
                 });
-                alert(
-                    `New edge ${constellations[editingIndex].connections[
-                        constellations[editingIndex].connections.length - 1
-                    ].connection_id
-                    }`
-                );
+                // alert(
+                //     `New edge ${constellations[editingIndex].connections[
+                //         constellations[editingIndex].connections.length - 1
+                //     ].connection_id
+                //     }`
+                // );
                 // alert(`${constellations[editingIndex].connections.length}`);
                 updateConstellations(editingIndex, {
                     connections: constellations[editingIndex].connections,
@@ -565,6 +564,8 @@ export default function StarsBackground({
                             background: "rgba(100, 100, 100, 0.5)",
                             padding: "8px",
                             borderRadius: "8px",
+                            borderTopLeftRadius: "0px",
+                            border: "1px solid darkgrey",
                             flexDirection: "row",
                             display: "flex",
                             alignItems: "flex-start",
@@ -573,10 +574,13 @@ export default function StarsBackground({
                         <div
                             style={{
                                 background: "none",
-                                minWidth: "100px",
+                                minWidth:
+                                    stars[clickedStarIndex].name!.length > 15
+                                        ? "200px"
+                                        : "150px",
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: "5px",
+                                gap: "8px",
                             }}
                         >
                             <span>
@@ -584,7 +588,22 @@ export default function StarsBackground({
                                     <i>Star info:</i>
                                 </b>
                             </span>
-                            <div>Name: {stars[clickedStarIndex].name}</div>
+                            <div>ID: {stars[clickedStarIndex].name}</div>
+                            <div>
+                                Distance (ly):{" "}
+                                {(
+                                    translateStar(stars[clickedStarIndex])
+                                        .distance * 3.261598
+                                ).toFixed(2)}
+                            </div>
+                            {stars[clickedStarIndex].effective_temperature && (
+                                <div>
+                                    Temperature (°K):{" "}
+                                    {stars[
+                                        clickedStarIndex
+                                    ].effective_temperature.toFixed(2)}
+                                </div>
+                            )}
                             {isEditing && (
                                 <button
                                     style={{
@@ -592,6 +611,7 @@ export default function StarsBackground({
                                         background: "rgba(200,200,200,0.7)",
                                         border: "1px grey",
                                         padding: "3px",
+                                        borderRadius: "5px",
                                     }}
                                     onClick={() => {
                                         connectStar(stars[clickedStarIndex].id);
@@ -633,6 +653,8 @@ export default function StarsBackground({
                             background: "rgba(100, 100, 100, 0.5)",
                             padding: "8px",
                             borderRadius: "8px",
+                            borderTopLeftRadius: "0px",
+                            border: "1px solid darkgrey",
                             flexDirection: "row",
                             display: "flex",
                             alignItems: "flex-start",
@@ -641,10 +663,10 @@ export default function StarsBackground({
                         <div
                             style={{
                                 background: "none",
-                                minWidth: "100px",
+                                minWidth: "150px",
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: "5px",
+                                gap: "8px",
                             }}
                         >
                             <span>
@@ -654,11 +676,13 @@ export default function StarsBackground({
                             </span>
                             <div>
                                 Constellation:{" "}
-                                {
-                                    constellations[
-                                        clickedEdgeConstellationIndex
-                                    ].name
-                                }
+                                <b>
+                                    {
+                                        constellations[
+                                            clickedEdgeConstellationIndex
+                                        ].name
+                                    }
+                                </b>
                             </div>
                             <button
                                 style={{
@@ -666,12 +690,13 @@ export default function StarsBackground({
                                     background: "rgba(200,200,200,0.7)",
                                     border: "1px grey",
                                     padding: "3px",
+                                    borderRadius: "5px",
                                 }}
                                 onClick={() => {
                                     deleteEdge(clickedEdge);
                                 }}
                             >
-                                Delete edge
+                                <b>Delete edge</b>
                             </button>
                         </div>
                         <button

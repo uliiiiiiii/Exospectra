@@ -212,7 +212,7 @@ function ExoplanetSearchResult() {
                     <div
                         style={{
                             position: "fixed",
-                            left: showConstellationMenu ? "80%" : "90%",
+                            left: showConstellationMenu ? "84%" : "90%",
                             top: showConstellationMenu ? "50%" : "90%",
                             transform: "translate(-50%, -50%)",
                             width: showConstellationMenu ? "27%" : "100px",
