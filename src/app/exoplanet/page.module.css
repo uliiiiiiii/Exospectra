@@ -57,14 +57,46 @@
         justify-content: space-between;
         width: 556px;
         align-items: flex-end;
-        /* height: calc(100% - 100px); */
         position: absolute;
         right: 60px;
-        position: absolute;
         top: 50px;
-        left: calc(100%-556px);
         z-index: 1000;
     }
+    
+    .slantedText {
+        background-color: red; /* Red background */
+        color: white; /* White text */
+        font-size: 16px; /* Adjust font size as needed */
+        font-weight: bold; /* Make text bold */
+        padding: 10px 30px; /* Add some padding */
+        transform: rotate(-10deg); /* Slant the text */
+        display: inline-block; /* Prevent the text from taking the full width */
+        /* margin: 20px 0; */
+        border-radius: 5px; /* Optional: round the corners */
+        position: relative;
+        /* Optional adjustments */
+        right: 170px; /* Align it within its parent */
+        bottom: 70px;
+    }
+    
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: 66px;
+    }
+    
+    .dragTool {
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+        flex-wrap: text; /* Corrected from text-wrap */
+        line-height: 28px;
+    }
+    
 
     .constellation {
         display: flex;
@@ -78,24 +110,6 @@
         bottom: 100px;
         position: absolute;
         z-index: 1000;
-    }
-
-    .right {
-        display: flex;
-        flex-direction: column;
-        gap: 66px;
-    }
-
-    .dragTool {
-        font-family: var(--font-family);
-        font-weight: 400;
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        flex-direction: row;
-        gap: 24px;
-        text-wrap: wrap;
-        line-height: 28px;
     }
 }
 

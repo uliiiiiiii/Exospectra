@@ -317,6 +317,9 @@ function ExoplanetSearchResult() {
                                         </p>
                                     </div>
                                 </div>
+                                <div className={css.slantedText}>
+                                    <p>Coming soon</p>
+                                </div>
                             </div>
                             <div className={css.constellation}>
                                 <ConstellationMenuButton
