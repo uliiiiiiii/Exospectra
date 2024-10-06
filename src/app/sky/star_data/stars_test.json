@@ -1,0 +1,15 @@
+{"metadata":
+[
+{"name": "id", "datatype": "long", "xtype": null, "arraysize": null, "description": "Unique source identifier (unique within a particular Data Release)", "unit": null, "ucd": "meta.id", "utype": null},
+{"name": "ra", "datatype": "double", "xtype": null, "arraysize": null, "description": "Right ascension", "unit": "deg", "ucd": "pos.eq.ra;meta.main", "utype": "stc:AstroCoords.Position3D.Value3.C1"},
+{"name": "dec", "datatype": "double", "xtype": null, "arraysize": null, "description": "Declination", "unit": "deg", "ucd": "pos.eq.dec;meta.main", "utype": "stc:AstroCoords.Position3D.Value3.C2"},
+{"name": "parallax", "datatype": "double", "xtype": null, "arraysize": null, "description": null, "unit": null, "ucd": null, "utype": null},
+{"name": "dist", "datatype": "float", "xtype": null, "arraysize": null, "description": "Distance from GSP-Phot Aeneas best library using BP\/RP spectra", "unit": "pc", "ucd": "pos.distance;pos.eq", "utype": null},
+{"name": "magnitude", "datatype": "float", "xtype": null, "arraysize": null, "description": "G-band mean magnitude", "unit": "mag", "ucd": "phot.mag;em.opt", "utype": null},
+{"name": "bp_rp_color", "datatype": "float", "xtype": null, "arraysize": null, "description": "BP - RP colour", "unit": "mag", "ucd": "phot.color;em.opt.B;em.opt.R", "utype": null}
+],
+"data":
+[
+[2947050466531873024,101.28662552099249,-16.720932526023173,0.374489588528761,2.6703012063129745,8.524133,-0.27842712]
+]
+}
