@@ -28,22 +28,27 @@ function ExoplanetSearchResult() {
     }
 
     function getFreeID() {
-        const result = localStorage.getItem("firstFreeID");
         let new_id = 1; //if none
-        if (result != null) {
-            new_id = parseInt(result, 10) + 1;
+        if (typeof window !== 'undefined') {
+            const result = localStorage.getItem("firstFreeID");
+            if (result != null) {
+                new_id = parseInt(result, 10) + 1;
+            }
+            localStorage.setItem("firstFreeID", `${new_id}`);
         }
-        localStorage.setItem("firstFreeID", `${new_id}`);
         return new_id - 1;
     }
 
     function getFreeEdgeID() {
-        const result = localStorage.getItem("firstFreeEdgeID");
         let new_id = 1; //if none
-        if (result != null) {
-            new_id = parseInt(result, 10) + 1;
+        if (typeof window !== 'undefined') {
+            const result = localStorage.getItem("firstFreeEdgeID");
+
+            if (result != null) {
+                new_id = parseInt(result, 10) + 1;
+            }
+            localStorage.setItem("firstFreeEdgeID", `${new_id}`);
         }
-        localStorage.setItem("firstFreeEdgeID", `${new_id}`);
         return new_id - 1;
     }
 
@@ -85,7 +90,10 @@ function ExoplanetSearchResult() {
     }
 
     function recieveConstellations() {
-        const result = localStorage.getItem("constellations");
+        let result = null;
+        if (typeof window !== 'undefined') {
+            result = localStorage.getItem("constellations");
+        }
         if (result == null) return [];
         const constellations = JSON.parse(result) as Constellation[];
         constellations.forEach((_, index) => { constellations[index].isEditing = false; });
@@ -93,7 +101,7 @@ function ExoplanetSearchResult() {
     }
 
     function submitConstellations(constellations: Constellation[]) {
-        localStorage.setItem(`constellations`, JSON.stringify(constellations));
+        if (typeof window !== 'undefined') localStorage.setItem(`constellations`, JSON.stringify(constellations));
     }
 
     const searchParams = useSearchParams();
