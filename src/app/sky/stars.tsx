@@ -520,10 +520,9 @@ export default function StarsBackground({
                     connection_id: getFreeEdgeID(),
                 });
                 alert(
-                    `New edge ${
-                        constellations[editingIndex].connections[
-                            constellations[editingIndex].connections.length - 1
-                        ].connection_id
+                    `New edge ${constellations[editingIndex].connections[
+                        constellations[editingIndex].connections.length - 1
+                    ].connection_id
                     }`
                 );
                 // alert(`${constellations[editingIndex].connections.length}`);

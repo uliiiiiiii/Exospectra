@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: "Planet name is required" }, { status: 400 });
   }
 
-  let planetData: PlanetProps | null = await fetchPlanetDataByName(planetName);
+  const planetData: PlanetProps | null = await fetchPlanetDataByName(planetName);
 
   return NextResponse.json(planetData, { status: 200 });
 }

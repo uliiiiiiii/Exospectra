@@ -173,9 +173,9 @@ function ExoplanetSearchResult() {
                                 updateConstellations={updateConstellations}
                                 getFreeEdgeID={getFreeEdgeID}
                                 isActive={showConstellationMenu}
-                                ra={planetData.ra}
-                                dec={planetData.dec}
-                                distance={planetData.distance}
+                                ra={planetData.ra ? planetData.ra : 1}
+                                dec={planetData.dec ? planetData.dec : 1}
+                                distance={planetData.distance ? planetData.distance : 1}
                             />
                             <OrbitControls
                                 enableZoom={true}

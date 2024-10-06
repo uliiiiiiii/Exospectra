@@ -12,7 +12,7 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
   if (response.ok) {
     const data = await response.json();
     if (data && data.length) {
-      let totals = {
+      const totals = {
         radius: { sum: 0, count: 0 },
         semiMajorAxis: { sum: 0, count: 0 },
         orbitalPeriod: { sum: 0, count: 0 },

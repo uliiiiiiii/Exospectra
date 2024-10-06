@@ -39,7 +39,7 @@ async function fetchStarDataByName(systemName: string): Promise<SystemProps | nu
     return null;
   }
 
-  let totals = {
+  const totals = {
     temperature: { sum: 0, count: 0 },
     radius: { sum: 0, count: 0 },
   };
