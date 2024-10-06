@@ -112,10 +112,22 @@
   }
 
   .about,
-  .team {
+  .planetsList {
     font-size: 20px;
     color: #fff;
     font-family: var(--font-family);
+    line-height: 25px;
+  }
+
+  .about:hover,
+  .planetsList:hover {
+    text-decoration: underline;
+  }
+
+  .planetsList {
+    width: 220px;
+    text-align: right;
+    text-wrap: wrap
   }
 
 
