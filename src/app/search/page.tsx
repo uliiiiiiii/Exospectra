@@ -37,7 +37,7 @@ function Search() {
         <div>
             {!planetName ? (
                 <h1>No object name provided.</h1>
-            ) : (<Loading progress="Searching for your object... 👀" />
+            ) : (loading ? <Loading progress="Searching for your object... 👀" /> : ''
             )}
         </div>
     );

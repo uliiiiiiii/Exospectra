@@ -1,7 +1,7 @@
 "use client";
 import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { SystemProps } from '@/types/system';
 import Orbit from './components/orbit';
 import Planet from './components/planet';

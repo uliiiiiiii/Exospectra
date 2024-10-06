@@ -13,7 +13,7 @@ const STARS_JSON_URL = [
     stars_4,
 ];
 
-let star_list: SmallStar[] = [];
+const star_list: SmallStar[] = [];
 
 export default async function getStars() {
     if (star_list.length > 0) {
