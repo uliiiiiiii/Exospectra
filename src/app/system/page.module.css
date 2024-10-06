@@ -7,4 +7,48 @@
 
 .canvas {
     width: 100%;
+    height: 100%;
+}
+
+@media screen and (min-width: 1440px) {
+    .htmlContent {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 67px;
+        width: 100%;
+        position: absolute;
+        z-index: 99999;
+    }
+
+    .infoBlock {
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 20px;
+        color: #fff;
+        width: 610px;
+        text-wrap: normal;
+    }
+
+    .other {
+        display: flex;
+        flex-direction: column;
+        gap: 66px;
+        width: 556px
+    }
+
+    .tip {
+        font-family: var(--font-family);
+        color: #fff;
+        font-size: 18px;
+        width: 610px;
+        text-wrap: normal;
+        position: absolute;
+        left: 67px;
+        bottom: 60px;
+        z-index: 99999;
+
+    }
+
+
 }

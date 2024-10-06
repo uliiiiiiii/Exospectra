@@ -1,7 +1,7 @@
 "use client";
 import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Html } from '@react-three/drei';
 import { SystemProps } from '@/types/system';
 import Orbit from './components/orbit';
 import Planet from './components/planet';
@@ -12,12 +12,20 @@ import css from './page.module.css'
 import { StarProps } from '@/types/star';
 import { PlanetProps } from '@/types/planet';
 import { system as defaultSystemData } from '../utils/placeholders'
+import ExospectraLabel from '../components/ExospectraLabel';
 
-
-
-function PlanetarySystem({ systemData = defaultSystemData }: { systemData: SystemProps }) {
+function PlanetarySystem({ systemData = defaultSystemData, name }: { systemData: SystemProps; name: string }) {
     return (
         <div className={css.scene}>
+            <div className={css.htmlContent}>
+                <div className={css.infoBlock}>
+                    <p>Search Results for: {name || 'N/A'}</p>
+                </div>
+                <div className={css.other}>
+                    <ExospectraLabel />
+                </div>
+            </div>
+            <div className={css.tip}>Tip: click on the planet to see it up close and view stars from it 🔭</div>
             <Canvas camera={{ position: [0, 0, 5] }} className={css.canvas}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -95,7 +103,7 @@ function ExoplanetSystemSearchResult() {
         return <p>No system name provided.</p>;
     }
 
-    return systemData ? <PlanetarySystem systemData={systemData} /> : <p>No system data found.</p>;
+    return systemData ? <PlanetarySystem systemData={systemData} name={systemName} /> : <p>No system data found.</p>;
 }
 
 export default function ExoplanetSystem() {
