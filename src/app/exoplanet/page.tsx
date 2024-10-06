@@ -59,7 +59,7 @@ function ExoplanetSearchResult() {
                             shadows
                             className={css.canvas}
                             camera={{
-                                position: [0, 0, 5],
+                                position: [0, 0, 10],
                             }}
                         >
                             <Html fullscreen>
