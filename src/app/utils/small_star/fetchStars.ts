@@ -6,11 +6,11 @@ import stars_4 from "../../sky/star_data/stars4.json" assert { type: "json" };
 import brightest_stars from "../../sky/star_data/brightest_stars.json" assert { type: "json" };
 
 const STARS_JSON_URL = [
+    brightest_stars,
     stars_1,
     stars_2,
     stars_3,
     stars_4,
-    brightest_stars,
 ];
 
 let star_list: SmallStar[] = [];
