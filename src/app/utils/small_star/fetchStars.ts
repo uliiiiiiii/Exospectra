@@ -18,18 +18,23 @@ export default async function getStars() {
         return star_list;
     } else {
         alert(`start`);
+        let global_id = 0;
         for (let i = 0; i < STARS_JSON_URL.length; i++) {
             try {
-                for (let j = 0; j < STARS_JSON_URL[i].data.length; j++) {
+                for (let j = 0; j < Math.min(200000,STARS_JSON_URL[i].data.length); j++) {
                     // if (star_list.length > 10000) break;
                     // alert(`${stars_1.data[0]}`);
                     star_list.push({
+                        id: global_id,
+                        name: `${STARS_JSON_URL[i].data[j][0]}`,
                         ra: STARS_JSON_URL[i].data[j][1],
                         dec: STARS_JSON_URL[i].data[j][2],
                         distance: STARS_JSON_URL[i].data[j][4],
                         magnitude: STARS_JSON_URL[i].data[j][5],
                         bv_color: STARS_JSON_URL[i].data[j][6],
+                        effective_temperature: STARS_JSON_URL[i].data[j][7],
                     });
+                    global_id++;
                 }
             } catch (error) {
                 console.error("Error loading stars from JSON:", error);

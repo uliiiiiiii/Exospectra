@@ -1,0 +1,137 @@
+.menuButton {
+    width: 100px;
+    height: 100px;
+    color: grey;
+    background-color:#2b2a33;
+    border-radius:16px;
+    cursor: pointer;
+}
+
+.mainMenuContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #2B2A33;
+    color: grey;
+    padding: 8px;
+    flex-direction: column;
+}
+
+.menuHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.menuTitle {
+    font-size: 20px;
+}
+
+.closeButton {
+    width: 30px;
+    height: 30px;
+    color: white;
+    background: #455460;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.constellationsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.constellationItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.constellationContent {
+    flex: 1;
+    border: 3px solid;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.constellationHeader {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nameInput {
+    width: 100%;
+    border: none;
+    padding: 4px;
+    color: white;
+    background: transparent;
+}
+
+.buttonGroup {
+    flex-direction: row;
+    display: flex;
+    gap: 8px;
+}
+
+.colorPalette {
+    background: #455460;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.colorOption {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.actionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.addButton {
+    flex: 1;
+    height: 40px;
+    font-size: 30px;
+    border: 0;
+    border-radius: 4px;
+    background: #6600CC;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+}
+
+.smallButton {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

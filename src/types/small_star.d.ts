@@ -1,4 +1,6 @@
 export interface SmallStar {
+    name?: string;
+    id: number;
     ra: number;
     dec: number;
     distance: number;
