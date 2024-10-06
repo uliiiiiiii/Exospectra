@@ -11,6 +11,7 @@ import { Html } from "@react-three/drei";
 import ExospectraLabel from '../components/ExospectraLabel';
 import Image from 'next/image';
 import Loading from '../components/loading/loading';
+import StarsBackground from '../sky/stars';
 
 function ExoplanetSearchResult() {
     const searchParams = useSearchParams();
@@ -61,6 +62,7 @@ function ExoplanetSearchResult() {
                             className={css.canvas}
                             camera={{
                                 position: [0, 0, 10],
+                                far: 100000,
                             }}
                         >
                             <Html fullscreen>
@@ -87,7 +89,7 @@ function ExoplanetSearchResult() {
                             <directionalLight position={[10, 10, 10]} intensity={1} castShadow />
 
                             <ExoplanetModel data={planetData} />
-                            <StarsPlaceholder />
+                            <StarsBackground/>
 
                             <OrbitControls enableZoom={true} minDistance={30} maxDistance={110} />
 
