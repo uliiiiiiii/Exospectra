@@ -4,10 +4,8 @@ import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import css from "./page.module.css";
-import StarsPlaceholder from "../components/starsPlaceholder";
 import ExoplanetModel from "./components/exoplanet";
 import { PlanetProps } from "@/types/planet";
-import { Html } from "@react-three/drei";
 import ExospectraLabel from "../components/ExospectraLabel";
 import Image from "next/image";
 import Loading from "../components/loading/loading";
@@ -21,6 +19,7 @@ let currentEdgeIDavailable = 0;
 
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
+    const [displayButtons, setDisplayButtons] = useState(true);
     const [constellations, util_setConstellations] = useState<Constellation[]>(
         recieveConstellations()
     );
@@ -181,7 +180,7 @@ function ExoplanetSearchResult() {
                             pointerEvents: "auto",
                         }}
                     >
-                        {showConstellationMenu && (
+                        {displayButtons && showConstellationMenu && (
                             <ConstellationsMenu
                                 onClose={() => {
                                     setShowConstellationMenu(false);
@@ -196,7 +195,7 @@ function ExoplanetSearchResult() {
                             />
                         )}
                     </div>
-                    {!showConstellationMenu && (
+                    {displayButtons && !showConstellationMenu && (
                         <>
                             <div className={css.infoBlock}>
                                 <p>
@@ -256,6 +255,8 @@ function ExoplanetSearchResult() {
                             </div>
                         </>
                     )}
+                    <div className={css.displayButtons} style={{ backgroundImage: `url(/${displayButtons ? 'hide' : 'show'}Icon.png` }} onClick={() => setDisplayButtons(!displayButtons)}></div>
+
                 </>
             ) : (
                 <p>No planet data found.</p>
@@ -266,7 +267,7 @@ function ExoplanetSearchResult() {
 
 export default function Exoplanet() {
     return (
-        <Suspense fallback={<Loading progress="Found an exoplanet! Getting its name from the url... 🔗"/>}>
+        <Suspense fallback={<Loading progress="Found an exoplanet! Getting its name from the url... 🔗" />}>
             <ExoplanetSearchResult />
         </Suspense>
     );

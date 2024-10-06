@@ -98,3 +98,23 @@
         line-height: 28px;
     }
 }
+
+
+.displayButtons {
+    width: 164px;
+    height: 125px;
+    background-color: var(--background-no-hover);
+    border-radius: 50px;
+    border: 6px solid var(--border-color);
+    background-repeat: no-repeat;
+    background-size: 0.9;
+    background-position: center;
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
+    z-index: 9999;
+}
+
+.displayButtons:hover {
+    background-color: var(--background-hover);
+}
