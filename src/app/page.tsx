@@ -27,7 +27,7 @@ export default function Home() {
         <div className={css.headline}>Search for a Planet/Planetary System</div>
         <input
           type="text"
-          placeholder="Enter planet/planetary system name"
+          placeholder="Enter planet/system name"
           value={planetName}
           onChange={(e) => setPlanetName(e.target.value)}
           className={css.searchField}

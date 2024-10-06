@@ -19,7 +19,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px
+    gap: 30px
   }
 
   .labelContainer {
@@ -63,7 +63,11 @@
   .headline {
     font-size: 24px;
     color: #fff;
+    width: 570px;
+    word-wrap: normal;
+    text-align: center;
     font-family: var(--font-family);
+    line-height: 28px;
 
   }
 
@@ -75,7 +79,7 @@
     background: rgba(184, 184, 184, 0.26);
     padding: 30px;
     outline: none;
-    font-size: 22px;
+    font-size: 18px;
     color: #fff;
     font-family: var(--font-family);
   }
@@ -87,7 +91,7 @@
 
 
   .searchField::placeholder {
-    font-size: 22px;
+    font-size: 18px;
     color: #fff;
     font-family: var(--font-family);
 
@@ -95,10 +99,10 @@
 
   .button {
     border: 6px solid #181818;
-    width: 100px;
+    width: 140px;
     height: 50px;
     background: rgba(184, 184, 184, 0.26);
-    font-size: 22px;
+    font-size: 18px;
     color: #fff;
     font-family: var(--font-family);
   }
