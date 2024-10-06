@@ -101,7 +101,7 @@ function ExoplanetSearchResult() {
             result = localStorage.getItem("constellations");
         }
         if (result == null) return [];
-        let constellations = JSON.parse(result) as Constellation[];
+        const constellations = JSON.parse(result) as Constellation[];
         constellations.forEach((_, index) => {
             constellations[index].isEditing = false;
         });
@@ -286,17 +286,17 @@ function ExoplanetSearchResult() {
                                         Orbital period (days):{" "}
                                         {planetData.orbitalPeriod
                                             ? planetData.orbitalPeriod.toFixed(
-                                                  2
-                                              )
+                                                2
+                                            )
                                             : "N/A"}
                                     </li>
                                     <li>
                                         Distance (light years):{" "}
                                         {planetData.distance
                                             ? (
-                                                  planetData.distance! *
-                                                  3.261598
-                                              ).toFixed(2)
+                                                planetData.distance! *
+                                                3.261598
+                                            ).toFixed(2)
                                             : "N/A"}
                                     </li>
                                 </ul>
@@ -330,9 +330,8 @@ function ExoplanetSearchResult() {
                     <div
                         className={css.displayButtons}
                         style={{
-                            backgroundImage: `url(/${
-                                displayButtons ? "hide" : "show"
-                            }Icon.png`,
+                            backgroundImage: `url(/${displayButtons ? "hide" : "show"
+                                }Icon.png`,
                         }}
                         onClick={() => setDisplayButtons(!displayButtons)}
                     ></div>
