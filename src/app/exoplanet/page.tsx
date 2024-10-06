@@ -14,6 +14,7 @@ import ConstellationMenuButton from "./components/constellationsMenuButton";
 import { Constellation } from "@/types/constellation";
 import ConstellationsMenu from "./components/constellationsMenu";
 import exportToPng from "../utils/exportToPng";
+import { planet } from "../utils/placeholders";
 
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
@@ -57,14 +58,19 @@ function ExoplanetSearchResult() {
         let newConstellations = [...constellations];
         newConstellations.forEach((constellation, index) => {
             if (constellation.id == id) {
-                newConstellations[index] = { ...constellation, ...newConstellation };
+                newConstellations[index] = {
+                    ...constellation,
+                    ...newConstellation,
+                };
             }
         });
         setConstellations(newConstellations);
     }
 
     function deleteConstellation(id: number) {
-        setConstellations(constellations.filter(constellation => constellation.id !== id));
+        setConstellations(
+            constellations.filter((constellation) => constellation.id !== id)
+        );
     }
 
     function addConstellation(newConstellation: Constellation) {
@@ -88,7 +94,9 @@ function ExoplanetSearchResult() {
         let result = localStorage.getItem("constellations");
         if (result == null) return [];
         let constellations = JSON.parse(result) as Constellation[];
-        constellations.forEach((_, index) => { constellations[index].isEditing = false; });
+        constellations.forEach((_, index) => {
+            constellations[index].isEditing = false;
+        });
         return constellations;
     }
 
@@ -127,7 +135,9 @@ function ExoplanetSearchResult() {
     };
 
     if (isLoading) {
-        return <Loading progress="Found an exoplanet! Fetching its data... 🌍" />;
+        return (
+            <Loading progress="Found an exoplanet! Fetching its data... 🌍" />
+        );
     }
 
     if (!planetName) {
@@ -154,9 +164,11 @@ function ExoplanetSearchResult() {
                                 far: 100000,
                             }}
                             style={{ position: "absolute", zIndex: 1 }}
-                            gl={{ preserveDrawingBuffer: true }}
-
-
+                            gl={{
+                                preserveDrawingBuffer: true,
+                                logarithmicDepthBuffer: true,
+                                antialias: false,
+                            }}
                         >
                             <ambientLight intensity={0.5} />
                             <directionalLight
@@ -175,7 +187,11 @@ function ExoplanetSearchResult() {
                                 isActive={showConstellationMenu}
                                 ra={planetData.ra ? planetData.ra : 1}
                                 dec={planetData.dec ? planetData.dec : 1}
-                                distance={planetData.distance ? planetData.distance : 1}
+                                distance={
+                                    planetData.distance
+                                        ? planetData.distance
+                                        : 1
+                                }
                             />
                             <OrbitControls
                                 enableZoom={true}
@@ -188,10 +204,10 @@ function ExoplanetSearchResult() {
                     <div
                         style={{
                             position: "fixed",
-                            left: showConstellationMenu ? "88%" : "90%",
+                            left: showConstellationMenu ? "80%" : "90%",
                             top: showConstellationMenu ? "50%" : "90%",
                             transform: "translate(-50%, -50%)",
-                            width: showConstellationMenu ? "20%" : "100px",
+                            width: showConstellationMenu ? "27%" : "100px",
                             height: showConstellationMenu ? "80%" : "100px",
                             zIndex: 1000,
                             pointerEvents: "auto",
@@ -215,21 +231,41 @@ function ExoplanetSearchResult() {
                     {displayButtons && !showConstellationMenu && (
                         <>
                             <div className={css.infoBlock}>
-                                <p>
-                                    Search Results for:{" "}
-                                    {planetName ? planetName : "N/A"}
-                                </p>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        gap: "8px",
+                                        flexDirection: "column",
+                                    }}
+                                >
+                                    <p>Search results for: </p>
+                                    <p
+                                        style={
+                                            typeof planet.color == "string"
+                                                ? { color: planet.color }
+                                                : { color: "white" }
+                                        }
+                                    >
+                                        {planetName ? planetName : "N/A"}
+                                    </p>
+                                </div>
                                 <ul className={css.dataBlock}>
                                     <li>
-                                        Mass (Earth Masses):{" "}
-                                        {planetData.mass
-                                            ? planetData.mass
+                                        Name:{" "}
+                                        {planetData.name
+                                            ? planetData.name
                                             : "N/A"}
                                     </li>
                                     <li>
-                                        Radius (kilometers):{" "}
+                                        Mass (Earth masses):{" "}
+                                        {planetData.mass
+                                            ? planetData.mass.toFixed(2)
+                                            : "N/A"}
+                                    </li>
+                                    <li>
+                                        Radius (km):{" "}
                                         {planetData.radius
-                                            ? planetData.radius
+                                            ? planetData.radius.toFixed(2)
                                             : "N/A"}
                                     </li>
                                     <li>
@@ -241,7 +277,18 @@ function ExoplanetSearchResult() {
                                     <li>
                                         Orbital period (days):{" "}
                                         {planetData.orbitalPeriod
-                                            ? planetData.orbitalPeriod
+                                            ? planetData.orbitalPeriod.toFixed(
+                                                  2
+                                              )
+                                            : "N/A"}
+                                    </li>
+                                    <li>
+                                        Distance (light years):{" "}
+                                        {planetData.distance
+                                            ? (
+                                                  planetData.distance! *
+                                                  3.261598
+                                              ).toFixed(2)
                                             : "N/A"}
                                     </li>
                                 </ul>
@@ -272,20 +319,34 @@ function ExoplanetSearchResult() {
                             </div>
                         </>
                     )}
-                    <div className={css.displayButtons} style={{ backgroundImage: `url(/${displayButtons ? 'hide' : 'show'}Icon.png` }} onClick={() => setDisplayButtons(!displayButtons)}></div>
-                    <div className={css.exportButton} onClick={() => exportToPng()}></div>
+                    <div
+                        className={css.displayButtons}
+                        style={{
+                            backgroundImage: `url(/${
+                                displayButtons ? "hide" : "show"
+                            }Icon.png`,
+                        }}
+                        onClick={() => setDisplayButtons(!displayButtons)}
+                    ></div>
+                    <div
+                        className={css.exportButton}
+                        onClick={() => exportToPng()}
+                    ></div>
                 </>
             ) : (
                 <p>No planet data found.</p>
-            )
-            }
-        </div >
+            )}
+        </div>
     );
 }
 
 export default function Exoplanet() {
     return (
-        <Suspense fallback={<Loading progress="Found an exoplanet! Getting its name from the url... 🔗" />}>
+        <Suspense
+            fallback={
+                <Loading progress="Found an exoplanet! Getting its name from the url... 🔗" />
+            }
+        >
             <ExoplanetSearchResult />
         </Suspense>
     );
