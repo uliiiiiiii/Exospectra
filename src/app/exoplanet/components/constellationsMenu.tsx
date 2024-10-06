@@ -34,14 +34,14 @@ export default function ConstellationsMenu({
         <div className={css.mainMenuContainer}>
             <div className={css.menuHeader}>
                 <div className={css.menuTitle}>Constellation Menu</div>
-                <button className={css.closeButton} onClick={() => onClose()}>
+                <button className={css.closeButton} onClick={() => { onClose() }}>
                     &times;
                 </button>
             </div>
             <div className={css.constellationsContainer}>
                 {constellations.map((constellation, index) => (
                     <div key={index} className={css.constellationItem}>
-                        <div 
+                        <div
                             className={css.constellationContent}
                             style={{
                                 height: constellation.isEditing && showColorSelection ? "100px" : "60px",
@@ -70,7 +70,7 @@ export default function ConstellationsMenu({
                                         <CustomSmallButton
                                             text={""}
                                             backgroundColor={colorNumToCSS(constellation.color)}
-                                            onClick={() => setShowColorSelection(!showColorSelection)}
+                                            onClick={() => {setShowColorSelection(!showColorSelection)}}
                                         />
                                     )}
                                     <CustomSmallButton
