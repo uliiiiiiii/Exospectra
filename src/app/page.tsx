@@ -34,7 +34,7 @@ export default function Home() {
         />
         <button onClick={handleSearch} className={css.button}>Search</button>
       </div>
-      <div className={css.team}>TEAM</div>
+      <a href="/planets-list"><div className={css.team}>INTERESTING PLANETS</div></a>
     </div >
   );
 }
