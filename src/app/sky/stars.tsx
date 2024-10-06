@@ -179,10 +179,8 @@ export default function StarsBackground({
                 varying vec3 vColor;
                 void main() {
                     // Calculate brightness as the average of the RGB values
-                    float brightness = (vColor.r + vColor.g + vColor.b) / 3.0;
-
                     // Discard the fragment if brightness is less than 0.5
-                    if (brightness < 0.5) {
+                    if (texture2D(pointTexture, gl_PointCoord).a < 0.06) {
                         discard;
                     }
 
