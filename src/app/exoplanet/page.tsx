@@ -14,9 +14,6 @@ import ConstellationMenuButton from "./components/constellationsMenuButton";
 import { Constellation } from "@/types/constellation";
 import ConstellationsMenu from "./components/constellationsMenu";
 
-let currentIDavailable = 0;
-let currentEdgeIDavailable = 0;
-
 function ExoplanetSearchResult() {
     const [showConstellationMenu, setShowConstellationMenu] = useState(false);
     const [displayButtons, setDisplayButtons] = useState(true);
@@ -30,32 +27,43 @@ function ExoplanetSearchResult() {
     }
 
     function getFreeID() {
-        currentIDavailable++;
-        return currentIDavailable - 1;
+        let result = localStorage.getItem("firstFreeID");
+        let new_id = 1; //if none
+        if (result != null) {
+            new_id = parseInt(result,10) +1;
+        }
+        localStorage.setItem("firstFreeID",`${new_id}`);
+        return new_id-1;
     }
 
     function getFreeEdgeID() {
-        currentEdgeIDavailable++;
-        return currentEdgeIDavailable - 1;
+        let result = localStorage.getItem("firstFreeEdgeID");
+        let new_id = 1; //if none
+        if (result != null) {
+            new_id = parseInt(result,10) +1;
+        }
+        localStorage.setItem("firstFreeEdgeID",`${new_id}`);
+        return new_id-1;
     }
 
     const [isEditing, setIsEditing] = useState(false);
     const [currentEditingIndex, setCurrentEditingIndex] = useState(-1);
 
     function updateConstellations(
-        index: number,
+        id: number,
         newConstellation: Partial<Constellation>
     ) {
-        const newConstellations = [...constellations];
-        newConstellations[index] = {
-            ...newConstellations[index],
-            ...newConstellation,
-        };
+        let newConstellations = [...constellations];
+        newConstellations.forEach((constellation, index) => {
+           if (constellation.id == id) {
+            newConstellations[index] = { ...constellation, ...newConstellation };
+           } 
+        });
         setConstellations(newConstellations);
     }
 
-    function deleteConstellation(index: number) {
-        setConstellations([...constellations].splice(index, 1));
+    function deleteConstellation(id: number) {
+        setConstellations(constellations.filter(constellation => constellation.id !== id));
     }
 
     function addConstellation(newConstellation: Constellation) {
@@ -78,7 +86,9 @@ function ExoplanetSearchResult() {
     function recieveConstellations() {
         let result = localStorage.getItem("constellations");
         if (result == null) return [];
-        return JSON.parse(result) as Constellation[];
+        let constellations = JSON.parse(result) as Constellation[];
+        constellations.forEach((_, index) => {constellations[index].isEditing = false;});
+        return constellations;
     }
 
     function submitConstellations(constellations: Constellation[]) {

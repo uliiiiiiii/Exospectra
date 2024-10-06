@@ -59,13 +59,17 @@ export default function StarsBackground({
         fetchData();
     }, []);
 
+    function getStarPosition(star: SmallStar) {
+        return raDecToCartesian(star.ra, star.dec, 10000);
+    }
+
     const geometry = useMemo(() => {
         const positions: number[] = [];
         const colors: number[] = [];
         const sizes: number[] = [];
 
         stars.forEach((star: SmallStar) => {
-            const pos = raDecToCartesian(star.ra, star.dec, 10000);
+            const pos = getStarPosition(star);
             const color = BVtoRGB(star.bv_color);
             positions.push(pos.x, pos.y, pos.z);
             let brightness = 1;
@@ -205,11 +209,7 @@ export default function StarsBackground({
                     effective_temperature: clickedStar.effective_temperature,
                 });
                 setClickedStarIndex(hoveredStarIndex);
-                const pos = raDecToCartesian(
-                    clickedStar.ra,
-                    clickedStar.dec,
-                    10000
-                );
+                const pos = getStarPosition(clickedStar);
                 if (isActive)
                 setClickedStarCoords(pos);
             }
@@ -351,8 +351,8 @@ export default function StarsBackground({
         const star2 = stars[connection.endStar];
         if (!star1 || !star2) return null;
 
-        const pos1 = raDecToCartesian(star1.ra, star1.dec, 10000);
-        const pos2 = raDecToCartesian(star2.ra, star2.dec, 10000);
+        const pos1 = getStarPosition(star1);
+        const pos2 = getStarPosition(star2);
 
         const points = calculateGreatCirclePoints(pos1, pos2);
 
@@ -436,13 +436,13 @@ export default function StarsBackground({
                     constelation_id: constellations[editingIndex].id,
                     connection_id: getFreeEdgeID(),
                 });
-                // alert(
-                //     `New edge ${
-                //         constellations[editingIndex].connections[
-                //             constellations[editingIndex].connections.length - 1
-                //         ].connection_id
-                //     }`
-                // );
+                alert(
+                    `New edge ${
+                        constellations[editingIndex].connections[
+                            constellations[editingIndex].connections.length - 1
+                        ].connection_id
+                    }`
+                );
                 // alert(`${constellations[editingIndex].connections.length}`);
                 updateConstellations(editingIndex, {
                     connections: constellations[editingIndex].connections,

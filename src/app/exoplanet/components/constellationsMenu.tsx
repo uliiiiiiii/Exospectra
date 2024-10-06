@@ -55,7 +55,7 @@ export default function ConstellationsMenu({
                                             type="text"
                                             value={constellation.name}
                                             onChange={(e) =>
-                                                updateConstellations(index, {
+                                                updateConstellations(constellation.id, {
                                                     name: e.target.value,
                                                 })
                                             }
@@ -104,7 +104,7 @@ export default function ConstellationsMenu({
                                                     ...connection,
                                                     color: color,
                                                 }));
-                                                updateConstellations(index, {
+                                                updateConstellations(constellation.id, {
                                                     color: color,
                                                     connections: updatedConnections,
                                                 });
@@ -121,7 +121,7 @@ export default function ConstellationsMenu({
                                 backgroundColor={constellation.isShown ? "#0066FF" : "grey"}
                                 onClick={() => {
                                     if (constellation.isEditing) stopEditing();
-                                    updateConstellations(index, {
+                                    updateConstellations(constellation.id, {
                                         isShown: !constellation.isShown,
                                     });
                                 }}
@@ -129,7 +129,7 @@ export default function ConstellationsMenu({
                             <CustomSmallButton
                                 text={"×"}
                                 backgroundColor={"#ff0000"}
-                                onClick={() => deleteConstellations(index)}
+                                onClick={() => deleteConstellations(constellation.id)}
                             />
                         </div>
                     </div>
