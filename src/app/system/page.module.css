@@ -10,7 +10,6 @@
     height: 100%;
 }
 
-@media screen and (min-width: 1440px) {
     .htmlContent {
         display: flex;
         flex-direction: row;
@@ -54,4 +53,3 @@
     }
 
 
-}
