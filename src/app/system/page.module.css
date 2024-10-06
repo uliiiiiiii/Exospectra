@@ -19,6 +19,9 @@
         width: 100%;
         position: absolute;
         z-index: 99999;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
     }
 
     .infoBlock {

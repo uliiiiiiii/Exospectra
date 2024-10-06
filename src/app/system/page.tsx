@@ -27,7 +27,7 @@ function PlanetarySystem({ systemData = defaultSystemData, name }: { systemData:
                 </div>
             </div>
             <div className={css.tip}>Tip: click on the planet to see it up close and view stars from it 🔭</div>
-            <Canvas camera={{ position: [0, 0, 5] }} className={css.canvas}>
+            <Canvas camera={{ position: [0, 50, 0] }} className={css.canvas}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
 

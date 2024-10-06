@@ -4,7 +4,7 @@ import calculatePlanetColor from "../../utils/planet/calculatePlanetColor";
 import classifyPlanet from "../../utils/planet/classifyPlanet";
 import calculateOrbitalRadius from "../../utils/planet/calculateOrbitalRadius";
 
-export default async function fetchPlanetDataByName(planetName: string, stellarRadius?:number) {
+export default async function fetchPlanetDataByName(planetName: string, stellarRadius?: number) {
   let planetData: PlanetProps | null = null;
   const response = await fetch(
     `https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+ps+where+pl_name='${planetName}'&format=json`
@@ -70,7 +70,7 @@ export default async function fetchPlanetDataByName(planetName: string, stellarR
         ),
         type: await classifyPlanet(planetRadius),
         mass: totals.mass.sum / totals.mass.count,
-        orbitalRadius: calculateOrbitalRadius(semiMajorAxis, stellarRadius),
+        orbitalRadius: calculateOrbitalRadius(semiMajorAxis, stellarRadius, planetRadius * 6371),
         semiMajorAxis: semiMajorAxis,
       };
     } else {
