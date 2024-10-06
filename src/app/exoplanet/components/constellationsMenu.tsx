@@ -27,14 +27,20 @@ export default function ConstellationsMenu({
     const [showColorSelection, setShowColorSelection] = useState(false);
 
     const colorOptions = [
-        0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0xffffff,
+        0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0x00ffff, 0xff00ff, 0xff8c00,
+        0xffffff,
     ];
 
     return (
         <div className={css.mainMenuContainer}>
             <div className={css.menuHeader}>
                 <div className={css.menuTitle}>Constellation Menu</div>
-                <button className={css.closeButton} onClick={() => { onClose() }}>
+                <button
+                    className={css.closeButton}
+                    onClick={() => {
+                        onClose();
+                    }}
+                >
                     &times;
                 </button>
             </div>
@@ -71,15 +77,24 @@ export default function ConstellationsMenu({
                                             className={css.nameInput}
                                         />
                                     ) : (
-                                        <p style={{paddingLeft:'4px'}}> {constellation.name}</p>
+                                        <p style={{ paddingLeft: "4px" }}>
+                                            {" "}
+                                            {constellation.name}
+                                        </p>
                                     )}
                                 </div>
                                 <div className={css.buttonGroup}>
                                     {constellation.isEditing && (
                                         <CustomSmallButton
                                             text={""}
-                                            backgroundColor={colorNumToCSS(constellation.color)}
-                                            onClick={() => {setShowColorSelection(!showColorSelection)}}
+                                            backgroundColor={colorNumToCSS(
+                                                constellation.color
+                                            )}
+                                            onClick={() => {
+                                                setShowColorSelection(
+                                                    !showColorSelection
+                                                );
+                                            }}
                                         />
                                     )}
                                     <CustomSmallButton

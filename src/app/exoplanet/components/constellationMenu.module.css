@@ -69,6 +69,7 @@
 .constellationsContainer {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
     gap: 16px;
 }
 
@@ -125,6 +126,7 @@
     padding: 8px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between ;
     gap: 8px;
 }
 
