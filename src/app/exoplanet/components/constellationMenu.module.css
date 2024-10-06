@@ -30,10 +30,14 @@
     display: flex;
     width: 100%;
     height: 100%;
-    background: #2B2A33;
-    color: grey;
-    padding: 8px;
+    background: var(--background-no-hover);
+    color: #fff;
+    font-family: var(--font-family);
+    padding: 20px;
     flex-direction: column;
+    border: 6px solid var(--border-color);
+    border-radius: 50px;
+
 }
 
 .menuHeader {
@@ -45,7 +49,7 @@
 }
 
 .menuTitle {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .closeButton {
