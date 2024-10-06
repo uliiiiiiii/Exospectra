@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function ExospectraLabel() {
     return (
-        <div className={styles.labelContainer}>
+        <div className={styles.labelContainer} onClick={() => window.location.href = '/'}>
             <span className={styles.labelText}>EX<Image src='/earthIcon.png' width={28} height={28} alt='.' />SPECTRA</span>
         </div>
     );

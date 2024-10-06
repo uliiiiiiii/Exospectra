@@ -18,6 +18,5 @@ export interface PlanetProps {
   color: string | THREE.Color | null;
   orbitalPeriod: number | null; //days
   semiMajorAxis: number | null; //AU
-  orbitalInclination: number | null; //deg
-  eccentricity: number | null;
+  orbitalRadius: number; // these are not in any specific physical units. It's just for 3d model 
 }

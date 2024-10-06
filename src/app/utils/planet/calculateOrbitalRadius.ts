@@ -1,3 +1,4 @@
-export default function calculateOrbitalRadius(semiMajorAxis: number) {
-  return Math.max(5, Math.min(50, semiMajorAxis * 10));
+export default function calculateOrbitalRadius(semiMajorAxis: number, stellarRadius?: number) {
+  if (!stellarRadius) return 0;
+  return (semiMajorAxis + stellarRadius) * 10;
 }
