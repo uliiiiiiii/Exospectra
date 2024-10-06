@@ -126,7 +126,7 @@ function ExoplanetSearchResult() {
     };
 
     if (isLoading) {
-        return <Loading progress="Found a system! Fetching its data... 🌍" />;
+        return <Loading progress="Found an exoplanet! Fetching its data... 🌍" />;
     }
 
     if (!planetName) {
