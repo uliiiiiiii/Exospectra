@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 
 async function fetchStarDataByName(systemName: string): Promise<SystemProps | null> {
   const response = await fetch(
-    `https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+stellarhosts+where+hostname='${systemName}'&format=json`
+    `https://cors-anywhere.herokuapp.com/https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+stellarhosts+where+hostname='${systemName}'&format=json`
   );
 
   if (!response.ok) {

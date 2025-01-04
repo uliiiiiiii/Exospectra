@@ -2,7 +2,7 @@ import { WavelengthRecord } from "@/types/planet";
 export default async function fetchPlanetSpectroscopyDataByName(planetName: string) {
   let planetData;
   const response = await fetch(
-    `https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+spectra+where+pl_name='${planetName}'&format=json`
+    `https://cors-anywhere.herokuapp.com/https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+spectra+where+pl_name='${planetName}'&format=json`
   );
   if (response.ok) {
     const data = await response.json();
