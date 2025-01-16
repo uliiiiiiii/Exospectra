@@ -1,6 +1,6 @@
 # 🌌 Exospectra 🌠  
 
-**ExoSpectra** lets you explore the universe from the surface of any exoplanet! 🌍✨ Built for the **NASA Apps Challenge**, it combines science and stunning 3D visuals.  
+**Exospectra** lets you explore the universe from the surface of any exoplanet! 🌍✨ Built for the **NASA Apps Challenge**, it combines science and stunning 3D visuals.  
 
 ## 🎬 Demo  
 👉 [Try the live demo here!](https://exospectra.vercel.app/)  
@@ -14,12 +14,12 @@
 
 1️⃣ Clone the repo and install dependencies:  
 ```bash  
-git clone https://github.com/your-username/exospectra.git  
+git clone https://github.com/uliiiiiiii/Exospectra/
 cd exospectra  
 npm install  
-
+```
 2️⃣ Start the app:
-
+```bash
 npm run dev  
 
 Visit: http://localhost:3000
